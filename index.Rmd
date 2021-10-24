@@ -1,0 +1,203 @@
+---
+title: "Adaptamed - Dendro plots"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    theme: yeti
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE, message=FALSE, warning=FALSE}
+library('flexdashboard')
+library('rgdal')
+library("leaflet") 
+library("leaflet.extras2")
+library("sf")
+library("tidyverse")
+library("raster")
+library("sp")
+library("lubridate")
+library("leafgl") # add large files points
+library("simplevis")
+library("leaflet.extras2")
+```
+
+```{r}
+# Read life plots
+c1 <- st_read("data/C1.shp", quiet = TRUE) 
+c6 <- st_read("data/c6.shp", quiet = TRUE)
+# aoi_sni <- st_transform(aoi_sni, crs = 4326)
+
+metadata_plot <- readxl::read_excel(path = "data/data_dendro_adaptamed.xlsx", 
+                                    sheet = "metadata_plot")
+
+centroides_plot <- st_as_sf(x = metadata_plot,                         
+           coords = c("long", "lat"),
+           crs = 4326) 
+```
+
+
+```{r}
+popup_c1 <- paste0(
+  "<strong>sitio:</strong> ", c1$site,
+  "<br><strong>ID Cuadricula:</strong> ", c1$idCuadric,
+  "<br><strong>Especie:</strong> ",  c1$spCode,
+  "<br><strong>LAI:</strong> ", c1$lai
+)
+
+
+trees <- awesomeIconList(
+  "P. pinaster" = makeAwesomeIcon(
+    icon = "tree",
+    markerColor = "darkgreen",
+    library = "fa"
+  ),
+  "P. nigra" = makeAwesomeIcon(
+    icon = "tree",
+    markerColor = "gray",
+    library = "fa"
+  ),
+  "P. sylvestris" = makeAwesomeIcon(
+    icon = "tree",
+    markerColor = "orange",
+    library = "fa"
+  ),
+  "P. halepensis" = makeAwesomeIcon(
+    icon = "tree",
+    markerColor = "green",
+    library = "fa"
+  ),
+  "Q. pyrenaica" = makeAwesomeIcon(
+    icon = "tree-deciduous",
+    markerColor = "goldenrod",
+    library = "fa"
+  ),
+  "Q. ilex" = makeAwesomeIcon(
+    icon = "tree-alt",
+    markerColor = "green",
+    library = "fa"
+  ),
+  "Q. pyrenaica // Q. ilex" = makeAwesomeIcon(
+    icon = "tree-alt",
+    markerColor = "red",
+    library = "fa"
+  ),
+  "Varias especies" = makeAwesomeIcon(
+    icon = "tree-alt",
+    markerColor = "white",
+    library = "fa"
+  )
+)
+
+
+
+```
+
+```{r}
+leaflet(metadata_plot) %>%
+  addAwesomeMarkers(
+    popup = ~paste0("<strong>Specie:</strong> ", metadata_plot$Specie, "</br>",
+                    "<strong>Loc:</strong> ", metadata_plot$loc, "</br>",
+                    "<strong>elev:</strong> ", metadata_plot$elev, "</br>",
+                    "<strong>site:</strong> ", metadata_plot$site,"</br>",
+                    "<strong>municipality</strong> ", metadata_plot$municipality),
+    icon = ~ trees[Specie]
+    ) %>% 
+  addWMSTiles(
+    baseUrl = "http://www.ideandalucia.es/wms/mdt_2005?",
+    layers = "Sombreado_10",
+    group = "Hillshade",
+    options = WMSTileOptions(
+      format = "image/png", 
+      transparent = TRUE),
+    attribution = '<a href="http://www.juntadeandalucia.es/institutodeestadisticaycartografia" target="_blank">Instituto de Estadística y Cartografía de Andalucía</a>'
+  ) %>%
+  addWMSTiles(
+    baseUrl = "http://www.ign.es/wms-inspire/ign-base?",
+    layers = "IGNBaseTodo",
+    group = "Basemap",
+    attribution = '© <a href="http://www.ign.es/ign/main/index.do" target="_blank">Instituto Geográfico Nacional de España</a>'
+  ) %>%  
+  addWMSTiles("http://www.ideandalucia.es/services/toporaster10/wms?",
+    layers = "toporaster10",
+    group = "Topographical",
+    options = WMSTileOptions(
+      format = "image/png", 
+      transparent = FALSE),
+    attribution = '<a href="http://www.juntadeandalucia.es/institutodeestadisticaycartografia" target="_blank">Instituto de Estadística y Cartografía de Andalucía</a>'
+  ) %>%
+  addWMSTiles("http://www.ideandalucia.es/wms/mta10r_2001-2013?",
+    layers = "mta10r_2001-2013",
+    group = "topo2013",
+    options = WMSTileOptions(
+      format = "image/png", 
+      transparent = FALSE),
+    attribution = '<a href="http://www.juntadeandalucia.es/institutodeestadisticaycartografia" target="_blank">Instituto de Estadística y Cartografía de Andalucía</a>'
+  ) %>% 
+  addWMSTiles("http://www.juntadeandalucia.es/medioambiente/mapwms/REDIAM_distribucion_pinus_pinaster?", 
+              layers = "distrib_pinus_pinaster", 
+              group = "P. pinaster", 
+              options = WMSTileOptions(
+      format = "image/png", 
+      transparent = TRUE)) %>% 
+  addWMSTiles("https://www.juntadeandalucia.es/medioambiente/mapwms/REDIAM_distribucion_pinus_nigra?", 
+              layers = "distrib_pinus_nigra", 
+              group = "P. nigra", 
+              options = WMSTileOptions(
+      format = "image/png", 
+      transparent = TRUE)) %>%
+  addWMSTiles("https://www.juntadeandalucia.es/medioambiente/mapwms/REDIAM_distribucion_pinus_halepensis?", 
+              layers = "pino_carrasco", 
+              group = "P. halepensis", 
+              options = WMSTileOptions(
+      format = "image/png", 
+      transparent = TRUE)) %>% 
+  addProviderTiles("Esri.WorldImagery", group = "Satellite") %>% 
+  addWMSTiles("http://www.ign.es/wms-inspire/pnoa-ma",
+    layers = "OI.OrthoimageCoverage",
+    group = "PNOA Máxima Actualidad",
+    options = WMSTileOptions(
+      format = "image/png", 
+      transparent = FALSE),
+    attribution = 'PNOA cedido por © <a href="http://www.ign.es/ign/main/index.do" target="_blank">Instituto Geográfico Nacional de España</a>'
+   ) %>% 
+  # leaflet.extras2::addWMS(
+  #   baseUrl = "https://www.juntadeandalucia.es/medioambiente/mapwms/REDIAM_comunidades_vegetales?",
+  #   layers = "Comunidades_vegetales",
+  #   group = "Comunidades Vegetales",
+  #   popupOptions = popupOptions(maxWidth = 1000),
+  #   options =
+  #     leaflet::WMSTileOptions(
+  #       format = "image/png",
+  #       transparent = TRUE,
+  #       info_format = "text/html",
+  #       opacity = 0.4,
+  #       tiled = FALSE
+  #     )
+  # ) %>%
+  addPolygons(
+    data = c1,
+    group = "C1-Adpatamed",
+    fillColor = "green", fillOpacity = 0.6,
+    stroke = TRUE, color= "blue", weight = 1,
+    popup = popup_c1,
+    label = ~CUADRICULA,
+    labelOptions = labelOptions(
+      noHide = FALSE,
+      offset = c(0, 0),
+      textOnly = F,
+      style = list("color" = "black")
+    )
+  )  %>% 
+  
+  addLayersControl(
+    position = "bottomright",
+    baseGroups = c("Basemap", "PNOA Máxima Actualidad", "Satellite", "Hillshade", "Topographical", "topo2013"),
+    overlayGroups = c("P. pinaster", "P. halepensis", "P. nigra", "C1-Adpatamed"), 
+    options = layersControlOptions(collapsed = TRUE)
+  ) 
+
+```
+
