@@ -36,6 +36,7 @@ metadata_plot <- readxl::read_excel(path = "data/data_dendro_adaptamed.xlsx",
 centroides_plot <- st_as_sf(x = metadata_plot,                         
            coords = c("long", "lat"),
            crs = 4326) 
+write_sf(centroides_plot, "data/data_dendro_adaptamed.shp")
 ```
 
 
