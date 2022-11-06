@@ -21,8 +21,8 @@
 window.FlexDashboardComponents = [];
 </script>
 
-<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
-<script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -38,379 +38,28 @@ window.FlexDashboardComponents = [];
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/stickytableheaders-0.1.19/jquery.stickytableheaders.min.js"></script>
-<script src="site_libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<link href="site_libs/value-box-accent-static-0.6.0/theme-yeti-value-box.css" rel="stylesheet" />
+<link href="site_libs/flexdashboard-css-0.6.0/flexdashboard.min.css" rel="stylesheet" />
+<link href="site_libs/flexdashboard-css-0.6.0/theme-yeti.css" rel="stylesheet" />
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
 <link href="site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="site_libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="site_libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
 <script src="site_libs/proj4-2.6.2/proj4.min.js"></script>
 <script src="site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="site_libs/leaflet-binding-2.0.4.1/leaflet.js"></script>
+<script src="site_libs/leaflet-binding-2.1.1/leaflet.js"></script>
 <link href="site_libs/leaflet-awesomemarkers-2.0.3/leaflet.awesome-markers.css" rel="stylesheet" />
 <script src="site_libs/leaflet-awesomemarkers-2.0.3/leaflet.awesome-markers.min.js"></script>
 <link href="site_libs/fontawesome-4.7.0/font-awesome.min.css" rel="stylesheet" />
 <script src="site_libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
-<script src="site_libs/leaflet-providers-plugin-2.0.4.1/leaflet-providers-plugin.js"></script>
+<script src="site_libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script>
 <style type="text/css">
-
 /*
- Dashboard CSS from Keen IO Dashboards
- (https://github.com/keen/dashboards)
+  CSS for flexdashboard.js' use of Sly(). The sizing/position of this CSS needs to be
+  applied _before_ flexdashboard.js initializes, which is why this CSS has been pulled
+  out from flexdashboard.scss and inlined in the document's head.
 */
-
-body {
-  background: #f2f2f2;
-  padding: 60px 0 0 8px; /* padding-top overridden by theme */
-}
-
-body hr {
-  border-color: #d7d7d7;
-  margin: 10px 0;
-}
-
-.navbar-inverse .navbar-nav > li > a,
-.navbar .navbar-brand {
-  text-decoration: none;
-}
-
-.navbar-logo {
-  margin-top: 1px;
-}
-
-.navbar-logo img {
-  margin-right: 12px;
-}
-
-.navbar-author {
-  margin-left: 10px;
-  font-size: 15px;
-}
-
-.navbar .dropdown-menu .fa {
-  min-width: 20px;
-}
-
-.navbar .dropdown-menu {
-  min-width: 150px;
-  max-height: 500px;
-  overflow: auto;
-}
-
-.chart-wrapper,
-.nav-tabs-custom,
-.sbframe-commentary
-{
-  background: #fff;
-  border: 1px solid #e2e2e2;
-  border-radius: 3px;
-  margin-bottom: 8px;
-  margin-right: 8px;
-}
-
-.chart-title {
-  border-bottom: 1px solid #d7d7d7;
-  color: #666;
-  font-size: 14px;
-  font-weight: 300;
-  padding: 7px 10px 4px;
-}
-
-.chart-wrapper .chart-title:empty {
-  display: none;
-}
-
-.chart-wrapper .chart-stage {
-  overflow: hidden;
-  padding: 5px 10px;
-  position: relative;
-}
-
-.chart-wrapper .chart-notes {
-  background: #fbfbfb;
-  border-top: 1px solid #e2e2e2;
-  color: #808080;
-  font-size: 12px;
-  padding: 8px 10px 5px;
-}
-
-/*
- CSS for handling flexbox layout
-*/
-
-#dashboard-container {
-  visibility: hidden;
-}
-
-.tab-content>.dashboard-page-wrapper.active {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.dashboard-page-wrapper {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-.dashboard-row-orientation {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-.dashboard-row {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
-      -ms-flex-direction: row;
-          flex-direction: row;
-}
-
-.dashboard-row-flex {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-}
-
-.dashboard-column-orientation {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
-      -ms-flex-direction: row;
-          flex-direction: row;
-}
-
-.dashboard-column {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-.chart-wrapper-flex {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-.chart-stage-flex {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-  position: relative;
-}
-
-.chart-shim {
-  position: absolute;
-  left: 8px; top: 8px; right: 8px; bottom: 8px;
-}
-
-.no-padding .chart-shim {
-  left: 0; top: 0; right: 0; bottom: 0;
-}
-
-.flowing-content-shim {
-  overflow: auto;
-  left: 0; top: 0; right: 0; bottom: 0;
-  padding-left: 8px;
-  padding-right: 8px;
-}
-
-.flowing-content-container {
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
-.chart-stage .table-bordered {
-  border: none;
-}
-
-.chart-stage .table-bordered > tbody > tr > th,
-.chart-stage .table-bordered > tfoot > tr > th,
-.chart-stage .table-bordered > tbody > tr > td,
-.chart-stage .table-bordered > tfoot > tr > td {
-  border: none;
-}
-
-.chart-stage .table-bordered > tbody > tr > td {
-  border-top: 1px solid #dddddd;
-}
-
-.chart-stage .table-bordered > thead > tr > th {
-  border: none;
-  border-bottom: 2px solid #dddddd;
-}
-
-.bootstrap-table table>thead {
-  background-color: #fff;
-}
-
-.bootstrap-table table.data,
-.bootstrap-table table.shiny-table {
-  width: inherit !important;
-}
-
-.bootstrap-table table.data>tbody>tr>th,
-.bootstrap-table table.shiny-table>tbody>tr>th {
-  border-top: none;
-  border-bottom: 2px solid #dddddd;
-  padding: 5px;
-}
-
-.bootstrap-table .data td[align=right] {
-  font-family: inherit;
-}
-
-.chart-wrapper form {
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-.shiny-input-container label {
-  font-weight: normal;
-}
-
-.chart-stage .html-widget {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-.chart-stage .html-widget-static-bound {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-.chart-stage .shiny-bound-output {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-/* Omit display of empty paragraphs */
-
-.chart-shim>p:empty {
-  display: none;
-}
-
-.chart-stage>p:empty {
-  display: none;
-}
-
-/* Omit display of special knitr options div*/
-
-.chart-stage .knitr-options {
-  display: none;
-}
-
-/* Automatically resizing images */
-
-.image-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: 0;
-}
-
-.image-container img {
-  opacity: 0;
-  overflow: hidden;
-}
-
-/* Value box */
-
-.value-box {
-  border-radius: 2px;
-  position: relative;
-  display: block;
-  margin-right: 8px;
-  margin-bottom: 8px;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-}
-
-.value-box > .inner {
-  padding: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-.value-box .value {
-  font-size: 38px;
-  font-weight: bold;
-  margin: 0 0 3px 0;
-  white-space: nowrap;
-  padding: 0;
-}
-
-.value-box .caption {
-  font-size: 15px;
-}
-.value-box .caption > small {
-  display: block;
-  font-size: 13px;
-  margin-top: 5px;
-}
-
-.value-box .icon i {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  font-size: 80px;
-  color: rgba(0, 0, 0, 0.15);
-}
-
-.linked-value:hover {
-  cursor: pointer;
-}
-
-.value-box.linked-value:hover {
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
-}
-
-/* STORYBOARD */
 
 .storyboard-nav button {
   background: transparent;
@@ -435,7 +84,6 @@ body hr {
   float: left;
   width: 2%;
   height: 120px;
-  font-size: 50px;
 }
 
 .storyboard-nav .sbprev {
@@ -471,12 +119,7 @@ body hr {
   height: 100%;
   padding: 10px 10px 10px 10px;
   margin-right: 8px;
-  background: #fff;
-  border: 1px solid #e2e2e2;
-  border-radius: 3px;
-  color: #3a3c47;
   text-align: left;
-  font-size: 14px;
   cursor: pointer;
 }
 
@@ -484,15 +127,8 @@ body hr {
   margin-right: 0px;
 }
 
-.storyboard-nav .sbframelist ul li.active {
-  color: #fff;
-  background: #B8B8B8;
-}
-
 .sbframe-commentary {
   width: 300px;
-  background: #fbfbfb;
-  font-size: 14px;
 }
 
 .sbframe-commentary ul {
@@ -506,273 +142,6 @@ body hr {
 .sbframe:not(.active) {
   display: none;
 }
-
-/* NAV TABS */
-
-.nav-tabs-custom > .nav-tabs {
-  margin: 0;
-  border-bottom: 1px solid #d7d7d7;
-  color: #666;
-  font-size: 14px;
-  font-weight: 300;
-  border-top-right-radius: 3px;
-  border-top-left-radius: 3px;
-}
-.nav-tabs-custom > .nav-tabs > li {
-  border-top: 3px solid transparent;
-  margin-bottom: -1px;
-  margin-right: 5px;
-}
-.nav-tabs-custom > .nav-tabs > li > a,
-.nav-tabs-custom > .nav-tabs > li > a:active {
-  color: #666;
-  font-weight: 300;
-  font-size: 14px;
-  border-radius: 0;
-  padding: 3px 10px 5px;
-  text-transform: none;
-}
-
-.nav-tabs-custom > .nav-tabs > li:not(.active) > a {
-  border-bottom-color: transparent;
-}
-
-.nav-tabs-custom > .nav-tabs > li > a.text-muted {
-  color: #999;
-}
-.nav-tabs-custom > .nav-tabs > li > a,
-.nav-tabs-custom > .nav-tabs > li > a:hover {
-  background: transparent;
-  margin: 0;
-}
-.nav-tabs-custom > .nav-tabs > li > a:hover {
-  color: #999;
-}
-.nav-tabs-custom > .nav-tabs > li:not(.active) > a:hover,
-.nav-tabs-custom > .nav-tabs > li:not(.active) > a:focus,
-.nav-tabs-custom > .nav-tabs > li:not(.active) > a:active {
-  border-color: transparent;
-}
-.nav-tabs-custom > .nav-tabs > li.active {
-  border-top-color: #3c8dbc;
-}
-.nav-tabs-custom > .nav-tabs > li.active > a,
-.nav-tabs-custom > .nav-tabs > li.active:hover > a {
-  background-color: #fff;
-  color: #666;
-}
-.nav-tabs-custom > .nav-tabs > li.active > a {
-  border-top-color: transparent;
-  border-left-color: #d7d7d7;
-  border-right-color: #d7d7d7;
-}
-.nav-tabs-custom > .nav-tabs > li:first-of-type {
-  margin-left: 0;
-}
-.nav-tabs-custom > .nav-tabs > li:first-of-type.active > a {
-  border-left-color: transparent;
-}
-.nav-tabs-custom > .nav-tabs.pull-right {
-  float: none !important;
-}
-.nav-tabs-custom > .nav-tabs.pull-right > li {
-  float: right;
-}
-.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type {
-  margin-right: 0;
-}
-.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type > a {
-  border-left-width: 1px;
-}
-.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type.active > a {
-  border-left-color: #d7d7d7;
-  border-right-color: transparent;
-}
-.nav-tabs-custom > .nav-tabs > li.header {
-  line-height: 35px;
-  padding: 0 10px;
-  font-size: 20px;
-  color: #666;
-}
-.nav-tabs-custom > .nav-tabs > li.header > .fa,
-.nav-tabs-custom > .nav-tabs > li.header > .glyphicon,
-.nav-tabs-custom > .nav-tabs > li.header > .ion {
-  margin-right: 5px;
-}
-.nav-tabs-custom > .tab-content {
-  background: #fff;
-  padding: 0;
-  border-bottom-right-radius: 3px;
-  border-bottom-left-radius: 3px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.nav-tabs-custom > .tab-content > .chart-wrapper {
-  background: #fff;
-  border: none;
-  margin: 0;
-}
-
-
-.nav-tabs-custom > .tab-content > .active {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.nav-tabs-custom .dropdown.open > a:active,
-.nav-tabs-custom .dropdown.open > a:focus {
-  background: transparent;
-  color: #999;
-}
-
-
-@media (max-width: 767px) {
-  .value-box {
-    text-align: center;
-    margin-right: 8px;
-  }
-  .value-box .icon {
-    display: none;
-  }
-}
-
-/* Fixed position sidebar */
-
-.section.sidebar {
-  position: fixed;
-  top: 51px; /* overridden by theme */
-  left: 0;
-  bottom: 0;
-  border-right: 1px solid #e2e2e2;
-  background-color: white; /* overridden by theme */
-  padding-left: 10px;
-  padding-right: 10px;
-  visibility: hidden;
-  overflow: auto;
-}
-
-.section.sidebar form p:first-child {
-  margin-top: 10px;
-}
-
-/* Embedded source code */
-
-#flexdashboard-source-code {
-  display: none;
-}
-
-.featherlight-content #flexdashboard-source-code {
-  display: inline-block;
-}
-
-.featherlight-content {
-  width: 80%;
-  max-width: 800px;
-  padding: 0 !important;
-  border-bottom: none !important;
-}
-
-.featherlight:last-of-type {
-  background: rgba(0, 0, 0, 0.7);
-}
-
-.featherlight-inner {
-  width: 100%;
-}
-
-.featherlight-content pre {
-  margin: 0;
-  border: 0;
-  background: #fff;
-  font-size: 12px;
-}
-
-.unselectable {
-  -ms-user-select: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: -moz-none;
-  -o-user-select: none;
-  user-select: none;
-}
-
-#flexdashboard-source-code code {
-  -ms-user-select: text;
-  -webkit-user-select: text;
-  -khtml-user-select: text;
-  -moz-user-select: text;
-  -o-user-select: text;
-  user-select: text;
-}
-
-/* DataTables Tweaks */
-
-.dataTables_filter input[type="search"] {
-  -webkit-appearance: searchfield;
-  outline: none;
-}
-
-.dataTables_wrapper.no-footer
-.dataTables_info {
-  padding-top: 0;
-}
-
-
-table.dataTable thead th {
-  border-bottom: 1px solid #d7d7d7;
-}
-
-.dataTables_wrapper.no-footer .dataTables_scrollBody {
-  border-bottom: 1px solid #d7d7d7;
-}
-
-/* Mobile phone only CSS */
-
-.desktop-layout div.section.mobile {
-  display: none;
-}
-
-.mobile-layout div.section.no-mobile {
-  display: none;
-}
-
-.mobile-figure {
-  display: none;
-}
-
-
-
-body {
-  padding-top: 54px;
-}
-
-.section.sidebar {
-  top: 45px;
-  background-color: rgba(0, 140, 186, 0.1);
-}
-
-.value-box {
-  color: inherit;
-}
-
-.bg-primary {
-  background-color: rgba(0, 140, 186, 0.3);
-}
-
-.storyboard-nav .sbframelist ul li.active {
-  background-color: rgba(0, 140, 186, 0.7);
-}
-
-
-.nav-tabs-custom > .nav-tabs > li.active {
-  background-color: rgba(0, 140, 186, 0.7);
-}
-
 @media only screen and (min-width: 768px) {
 html, body {
   height: 100%;
@@ -794,13 +163,7 @@ html, body {
 <div class="container-fluid">
 <div class="navbar-header">
 
-<button id="navbar-button" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-<span class="icon-bar"></span>
-<span class="icon-bar"></span>
-<span class="icon-bar"></span>
-</button>
-
-<span class="navbar-logo pull-left">
+<span class="navbar-logo">
   
 </span>
 <span class="navbar-brand">
@@ -808,6 +171,12 @@ html, body {
   <span class="navbar-author">
         </span>
 </span>
+
+<button id="navbar-button" type="button" class="navbar-toggle collapsed pull-right" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
 
 </div>
 <div id="navbar" class="navbar-collapse collapse">
@@ -1025,11 +394,13 @@ var FlexDashboard = (function () {
         for (var j = 0; j<item.items.length; j++) {
           var subItem = item.items[j];
           var li = $('<li></li>');
-          li.append(navbarLink(subItem.icon, subItem.title, subItem.href, subItem.target));
+          var a = navbarLink(subItem.icon, subItem.title, subItem.href, subItem.target);
+          a.removeClass("nav-link").addClass("dropdown-item");
+          li.append(a);
           menu.append(li);
         }
       } else {
-        var li = $('<li></li>');
+        var li = $('<li class="nav-item"></li>');
         li.append(navbarLink(item.icon, item.title, item.href, item.target));
         container.append(li);
       }
@@ -1044,7 +415,7 @@ var FlexDashboard = (function () {
     if (existingMenu.length > 0) {
       return existingMenu.children('ul');
     } else {
-      var li = $('<li></li>');
+      var li = $('<li class="nav-item"></li>');
       if (id)
         li.attr('id', id);
       li.addClass('dropdown');
@@ -1057,6 +428,7 @@ var FlexDashboard = (function () {
       var a = navbarLink(icon, title, "#");
       a.addClass('dropdown-toggle');
       a.attr('data-toggle', 'dropdown');
+      a.attr('data-bs-toggle', 'dropdown');
       a.attr('role', 'button');
       a.attr('aria-expanded', 'false');
       li.append(a);
@@ -1111,8 +483,10 @@ var FlexDashboard = (function () {
     if (navmenu) {
       var menuId = navmenu.replace(/\s+/g, '');
       var menu = navbarMenu(menuId, null, navmenu, container);
+      li.find("> a").removeClass("nav-link").addClass("dropdown-item");
       menu.append(li);
     } else {
+      li.addClass("nav-item")
       container.append(li);
     }
 
@@ -1123,7 +497,7 @@ var FlexDashboard = (function () {
 
   function navbarLink(icon, title, href, target) {
 
-    var a = $('<a></a>');
+    var a = $('<a class="nav-link"></a>');
     if (icon) {
 
       // get the name of the icon set and icon
@@ -1181,7 +555,6 @@ var FlexDashboard = (function () {
      var serviceLinks = {
       "twitter": "https://twitter.com/share?text=" + encodeURIComponent(document.title) + "&url="+encodeURIComponent(location.href),
       "facebook": "https://www.facebook.com/sharer/sharer.php?s=100&p[url]="+encodeURIComponent(location.href),
-      "google-plus": "https://plus.google.com/share?url="+encodeURIComponent(location.href),
       "linkedin": "https://www.linkedin.com/shareArticle?mini=true&url="+encodeURIComponent(location.href) + "&title=" + encodeURIComponent(document.title),
       "pinterest": "https://pinterest.com/pin/create/link/?url="+encodeURIComponent(location.href) + "&description=" + encodeURIComponent(document.title)
     };
@@ -1798,7 +1171,8 @@ var FlexDashboard = (function () {
 
     // check for fade option
     var fade = tabset.hasClass("tabset-fade");
-    var navClass = "nav-tabs";
+    var pills = tabset.hasClass("tabset-pills");
+    var navClass = pills ? "nav-pills" : "nav-tabs";
 
     // determine the heading level of the tabset and tabs
     var match = tabset.attr('class').match(/level(\d) /);
@@ -1819,6 +1193,7 @@ var FlexDashboard = (function () {
     $(tabs[0]).before(tabContent);
 
     // build the tabset
+    var activeTab = 0;
     tabs.each(function(i) {
 
       // get the tab div
@@ -1826,6 +1201,10 @@ var FlexDashboard = (function () {
 
       // get the id then sanitize it for use with bootstrap tabs
       var id = tab.attr('id');
+
+      // see if this is marked as the active tab
+      if (tab.hasClass('active'))
+        activeTab = i;
 
       // sanitize the id for use with bootstrap tabs
       id = id.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_');
@@ -1836,14 +1215,12 @@ var FlexDashboard = (function () {
       var headingDom = heading.contents();
 
       // build and append the tab list item
-      var a = $('<a role="tab" data-toggle="tab"></a>');
+      var a = $('<a role="tab" data-toggle="tab" class="nav-link"></a>');
       a.append(headingDom);
       a.attr('href', '#' + id);
       a.attr('aria-controls', id);
-      var li = $('<li role="presentation"></li>');
+      var li = $('<li role="presentation" class="nav-item"></li>');
       li.append(a);
-      if (i === 0)
-        li.attr('class', 'active');
       tabList.append(li);
 
       // set it's attributes
@@ -1853,15 +1230,17 @@ var FlexDashboard = (function () {
       tab.addClass('no-title');
       if (fade)
         tab.addClass('fade');
-      if (i === 0) {
-        tab.addClass('active');
-        if (fade)
-          tab.addClass('in');
-      }
 
       // move it into the tab content div
       tab.detach().appendTo(tabContent);
     });
+
+    // set active tab
+    $(tabList.children()[activeTab]).tab("show");
+    var active = $(tabContent.children('div.section')[activeTab]);
+    active.addClass('active');
+    if (fade)
+      active.addClass('in');
 
     // add nav-tabs-custom
     tabset.addClass('nav-tabs-custom');
@@ -2103,111 +1482,11 @@ var FlexDashboard = (function () {
     }
   }
 
-
-  // get theme color
-  var themeColors = {
-    bootstrap: {
-      primary: "rgba(51, 122, 183, 0.4)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    cerulean: {
-      primary: "rgb(47, 164, 231)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    journal: {
-      primary: "rgba(235, 104, 100, 0.70)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    flatly: {
-      primary: "rgba(44, 62, 80, 0.70)",
-      info: "rgba(52, 152, 219, 0.70)",
-      success: "rgba(24, 188, 156, 0.70)",
-      warning: "rgba(243, 156, 18, 0.70)",
-      danger: "rgba(231, 76, 60, 0.70)"
-    },
-    readable: {
-      primary: "rgba(69, 130, 236, 0.4)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    spacelab: {
-      primary: "rgba(68, 110, 155, 0.25)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    united: {
-      primary: "rgba(221, 72, 20, 0.30)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    cosmo: {
-      primary: "rgba(39, 128, 227, 0.7)",
-      info: "rgba(153, 84, 187, 0.7)",
-      success: "rgba(63, 182, 24, 0.7)",
-      warning: "rgba(255, 117, 24, 0.7)",
-      danger: "rgba(255, 0, 57, 0.7)"
-    },
-    lumen: {
-      primary: "rgba(21, 140, 186, 0.70)",
-      info: "rgba(117, 202, 235, 0.90)",
-      success: "rgba(40, 182, 44, 0.70)",
-      warning: "rgba(255, 133, 27, 0.70)",
-      danger: "rgba(255, 65, 54, 0.70)"
-    },
-    paper: {
-      primary: "rgba(33, 150, 243, 0.35)",
-      info: "rgb(225, 190, 231)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(255, 224, 178)",
-      danger: "rgb(249, 189, 187)"
-    },
-    sandstone: {
-      primary: "rgba(50, 93, 136, 0.3)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    simplex: {
-      primary: "rgba(217, 35, 15, 0.25)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    yeti: {
-      primary: "rgba(0, 140, 186, 0.298039)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    }
-  }
-  function themeColor(color) {
-    return themeColors[_options.theme][color];
-  }
-
   FlexDashboard.prototype = {
     constructor: FlexDashboard,
     init: init,
     isMobilePhone: isMobilePhone,
-    isFillPage: isFillPage,
-    themeColor: themeColor
+    isFillPage: isFillPage
   };
 
   return FlexDashboard;
@@ -2264,14 +1543,14 @@ window.FlexDashboardUtils = {
       return "";
   },
   manageActiveNavbarMenu: function () {
-    // remove active from anyone currently active
-    $('.navbar ul.nav').find('li').removeClass('active');
+    // remove active from currently active tabs
+    $('.navbar ul.nav .active').removeClass('active');
     // find the active tab
     var activeTab = $('.dashboard-page-wrapper.tab-pane.active');
     if (activeTab.length > 0) {
       var tabId = activeTab.attr('id');
       if (tabId)
-        $(".navbar ul.nav a[href='#" + tabId + "']").parents('li').addClass('active');
+        $(".navbar ul.nav a[href='#" + tabId + "']").tab("show");
     }
   }
 };
@@ -2353,16 +1632,6 @@ window.FlexDashboardComponents.push({
 window.FlexDashboardComponents.push({
   find: function(container) {
     return container.children('div[class^="shiny-"]');
-  }
-});
-
-// datatables
-window.FlexDashboardComponents.push({
-  find: function(container) {
-    return container.find('.datatables');
-  },
-  flex: function(fillPage) {
-    return fillPage;
   }
 });
 
@@ -2534,21 +1803,6 @@ window.FlexDashboardComponents.push({
     if (chartIcon)
       setIcon(chartIcon);
 
-    // set color based on data-background if necessary
-    var dataBackground = valueBox.attr('data-background');
-    if (dataBackground)
-      valueBox.css('background-color', bgColor);
-    else {
-      // default to bg-primary if no other background is specified
-      if (!valueBox.hasClass('bg-primary') &&
-          !valueBox.hasClass('bg-info') &&
-          !valueBox.hasClass('bg-warning') &&
-          !valueBox.hasClass('bg-success') &&
-          !valueBox.hasClass('bg-danger')) {
-        valueBox.addClass('bg-primary');
-      }
-    }
-
     // handle data attributes in valueOutputSpan
     function handleValueOutput(valueOutput) {
 
@@ -2562,19 +1816,30 @@ window.FlexDashboardComponents.push({
       if (dataIcon)
         setIcon(dataIcon);
 
-      // color
+      // If valueBox(color=) was an accent color, this attr should
+      // be populated with the accent color and the relevant CSS comes
+      // in through HTML dependencies
+      var dataColorAccent = valueOutput.attr('data-color-accent');
+      var valueBoxClasses = "value-box-" + (["primary", "info", "danger", "warning", "success"].join(" value-box-"));
+      if (dataColorAccent) {
+        valueBox.removeClass(valueBoxClasses);
+        valueBox.addClass('value-box-' + dataColorAccent);
+      }
+
+      // If valueBox(color=) was a CSS color, these other data-color-*
+      // attrs will be populated
       var dataColor = valueOutput.attr('data-color');
       if (dataColor) {
-        if (dataColor.indexOf('bg-') === 0) {
-          valueBox.css('background-color', '');
-          if (!valueBox.hasClass(dataColor)) {
-             valueBox.removeClass('bg-primary bg-info bg-warning bg-danger bg-success');
-             valueBox.addClass(dataColor);
-          }
-        } else {
-          valueBox.removeClass('bg-primary bg-info bg-warning bg-danger bg-success');
-          valueBox.css('background-color', dataColor);
-        }
+        valueBox.removeClass(valueBoxClasses);
+        valueBox.css('background-color', dataColor);
+      }
+      var dataColorText = valueOutput.attr('data-color-text');
+      if (dataColorText) {
+        valueBox.find(".inner").css('color', dataColorText);
+      }
+      var dataColorIcon = valueOutput.attr('data-color-icon');
+      if (dataColorIcon) {
+        valueBox.find(".icon").css('color', dataColorIcon);
       }
 
       // url
@@ -2620,8 +1885,8 @@ window.FlexDashboardComponents.push({
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<div id="htmlwidget-4ab376948f17e41fadc3" style="width:576px;height:460.8px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4ab376948f17e41fadc3">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addAwesomeMarkers","args":[[37.08871178,37.14335689,37.14837,37.132,37.15454,37.18253,37.16089188,37.135,36.95606649,36.96001702,36.96597767],[-2.68648579,-3.149016806,-3.14652,-3.147,-3.13756,-3.17767,-3.196805229,-3.198,-3.300930006,-3.303607785,-3.313213995],{"icon":"tree","markerColor":["green","gray","gray","gray","darkgreen","darkgreen","darkgreen","darkgreen","orange","orange","orange"],"iconColor":"white","spin":false,"squareMarker":false,"iconRotate":0,"prefix":"fa"},null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["<strong>Specie:<\/strong> Pinus halepensis<\/br><strong>Site:<\/strong> PIHAL_NACIMIENTO<\/br><strong>elev:<\/strong> 1212<\/br><strong>site_name:<\/strong> NACIMIENTO<\/br>","<strong>Specie:<\/strong> Pinus nigra<\/br><strong>Site:<\/strong> PINIG_LANTEIRA_M<\/br><strong>elev:<\/strong> 1646<\/br><strong>site_name:<\/strong> LANTEIRA_M<\/br>","<strong>Specie:<\/strong> Pinus nigra<\/br><strong>Site:<\/strong> PINIG_LANTEIRA_L2<\/br><strong>elev:<\/strong> 1585<\/br><strong>site_name:<\/strong> LANTEIRA_L2<\/br>","<strong>Specie:<\/strong> Pinus nigra<\/br><strong>Site:<\/strong> PINIG_LANTEIRA_H<\/br><strong>elev:<\/strong> 1810<\/br><strong>site_name:<\/strong> LANTEIRA_H<\/br>","<strong>Specie:<\/strong> Pinus pinaster<\/br><strong>Site:<\/strong> PIPIN_LANTEIRA_L2<\/br><strong>elev:<\/strong> 1433<\/br><strong>site_name:<\/strong> LANTERIA_L2<\/br>","<strong>Specie:<\/strong> Pinus pinaster<\/br><strong>Site:<\/strong> PIPIN_JEREZ_L<\/br><strong>elev:<\/strong> 1353<\/br><strong>site_name:<\/strong> JEREZ_L<\/br>","<strong>Specie:<\/strong> Pinus pinaster<\/br><strong>Site:<\/strong> PIPIN_JEREZ_M<\/br><strong>elev:<\/strong> 1605<\/br><strong>site_name:<\/strong> JEREZ_M<\/br>","<strong>Specie:<\/strong> Pinus pinaster<\/br><strong>Site:<\/strong> PIPIN_JEREZ_H<\/br><strong>elev:<\/strong> 1770<\/br><strong>site_name:<\/strong> JEREZ_H<\/br>","<strong>Specie:<\/strong> Pinus sylvestris<\/br><strong>Site:<\/strong> PISYL_PORTUGOS_L<\/br><strong>elev:<\/strong> 1633<\/br><strong>site_name:<\/strong> PORTUGOS_L<\/br>","<strong>Specie:<\/strong> Pinus sylvestris<\/br><strong>Site:<\/strong> PISYL_PORTUGOS_M<\/br><strong>elev:<\/strong> 1748<\/br><strong>site_name:<\/strong> PORTUGOS_M<\/br>","<strong>Specie:<\/strong> Pinus sylvestris<\/br><strong>Site:<\/strong> PISYL_PORTUGOS_H<\/br><strong>elev:<\/strong> 2000<\/br><strong>site_name:<\/strong> PORTUGOS_H<\/br>"],null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Satellite",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addWMSTiles","args":["http://www.ign.es/wms-inspire/pnoa-ma",null,"PNOA Máxima Actualidad",{"styles":"","format":"image/png","transparent":false,"version":"1.1.1","attribution":"PNOA cedido por © <a href=\"http://www.ign.es/ign/main/index.do\" target=\"_blank\">Instituto Geográfico Nacional de España<\/a>","layers":"OI.OrthoimageCoverage"}]},{"method":"addWMSTiles","args":["http://www.ideandalucia.es/wms/mdt_2005?",null,"Hillshade",{"styles":"","format":"image/png","transparent":true,"version":"1.1.1","attribution":"<a href=\"http://www.juntadeandalucia.es/institutodeestadisticaycartografia\" target=\"_blank\">Instituto de Estadística y Cartografía de Andalucía<\/a>","layers":"Sombreado_10"}]},{"method":"addWMSTiles","args":["http://www.ign.es/wms-inspire/ign-base?",null,"Basemap",{"styles":"","format":"image/jpeg","transparent":false,"version":"1.1.1","attribution":"© <a href=\"http://www.ign.es/ign/main/index.do\" target=\"_blank\">Instituto Geográfico Nacional de España<\/a>","layers":"IGNBaseTodo"}]},{"method":"addWMSTiles","args":["http://www.ideandalucia.es/services/toporaster10/wms?",null,"Topographical",{"styles":"","format":"image/png","transparent":false,"version":"1.1.1","attribution":"<a href=\"http://www.juntadeandalucia.es/institutodeestadisticaycartografia\" target=\"_blank\">Instituto de Estadística y Cartografía de Andalucía<\/a>","layers":"toporaster10"}]},{"method":"addWMSTiles","args":["http://www.ideandalucia.es/wms/mta10r_2001-2013?",null,"topo2013",{"styles":"","format":"image/png","transparent":false,"version":"1.1.1","attribution":"<a href=\"http://www.juntadeandalucia.es/institutodeestadisticaycartografia\" target=\"_blank\">Instituto de Estadística y Cartografía de Andalucía<\/a>","layers":"mta10r_2001-2013"}]},{"method":"addWMSTiles","args":["http://www.juntadeandalucia.es/medioambiente/mapwms/REDIAM_Ortofoto_Andalucia_1956?",null,"orto1956",{"styles":"","format":"image/png","transparent":false,"version":"1.1.1","attribution":"<a href=\"http://www.juntadeandalucia.es/institutodeestadisticaycartografia\" target=\"_blank\">Instituto de Estadística y Cartografía de Andalucía<\/a>","layers":"ortofoto_1956"}]},{"method":"addWMSTiles","args":["http://www.juntadeandalucia.es/medioambiente/mapwms/REDIAM_Ortofoto_BN_1977_83?",null,"orto77-83",{"styles":"","format":"image/png","transparent":false,"version":"1.1.1","attribution":"<a href=\"http://www.juntadeandalucia.es/institutodeestadisticaycartografia\" target=\"_blank\">Instituto de Estadística y Cartografía de Andalucía<\/a>","layers":"orto_BN_77_83"}]},{"method":"addPolygons","args":[[[[{"lng":[-3.19594821346026,-3.19595634608571,-3.19484835851923,-3.19484600763784,-3.19594821346026],"lat":[37.1610825924844,37.1619917481863,37.1620003190729,37.1610844097538,37.1610825924844]}]],[[{"lng":[-3.19484600763784,-3.19484835851923,-3.1937249891012,-3.1937262416418,-3.19484600763784],"lat":[37.1610844097538,37.1620003190729,37.1619897061751,37.1610831362119,37.1610844097538]}]],[[{"lng":[-3.19484367791897,-3.19484600763784,-3.1937262416418,-3.19372749242629,-3.19484367791897],"lat":[37.1601767044063,37.1610844097538,37.1610831362119,37.1601778504357,37.1601767044063]}]],[[{"lng":[-3.19360356531614,-3.19360566552849,-3.19248309847208,-3.19248083712933,-3.19360356531614],"lat":[37.1610864459487,37.1619859656182,37.161980125951,37.1610882747451,37.1610864459487]}]],[[{"lng":[-3.1936115847556,-3.19360356531614,-3.19248083712933,-3.1924785112909,-3.1936115847556],"lat":[37.1601654565531,37.1610864459487,37.161088274745,37.1601709459719,37.1601654565531]}]],[[{"lng":[-3.19248083712933,-3.19248309847208,-3.19137430854397,-3.1913755544875,-3.19248083712933],"lat":[37.161088274745,37.161980125951,37.161983923607,37.1610821286856,37.161088274745]}]],[[{"lng":[-3.1924785112909,-3.19248083712933,-3.1913755544875,-3.19137681186906,-3.1924785112909],"lat":[37.1601709459719,37.1610882747451,37.1610821286856,37.1601720678676,37.1601709459719]}]],[[{"lng":[-3.19596438888982,-3.19596143281416,-3.19483866472646,-3.19483047452948,-3.19596438888982],"lat":[37.1582828611189,37.1591920309522,37.1591903835858,37.1582862209385,37.1582828611189]}]],[[{"lng":[-3.19483665919533,-3.19484027997295,-3.19372711267819,-3.19372064323223,-3.19483665919533],"lat":[37.1591905134651,37.1601023521318,37.1601013281728,37.1591932785712,37.1591905134651]}]],[[{"lng":[-3.19483047452948,-3.19484117216233,-3.19372064323223,-3.19372961600328,-3.19483047452948],"lat":[37.1582862209385,37.1591935232312,37.1591932785712,37.1582894724334,37.1582862209385]}]],[[{"lng":[-3.18883415167079,-3.18883662165128,-3.18771238394181,-3.18771439133146,-3.18883415167079],"lat":[37.1464982508833,37.1473713849376,37.147376584645,37.1464929451248,37.1464982508833]}]],[[{"lng":[-3.18882412981664,-3.18883415167079,-3.18771439199666,-3.18771207589255,-3.18882412981664],"lat":[37.1455605927691,37.1464982508833,37.1464929450989,37.1455557622876,37.1455605927691]}]],[[{"lng":[-3.18771439199666,-3.18771238394181,-3.18655086095432,-3.18654891636834,-3.18771439199666],"lat":[37.1464929450989,37.147376584645,37.1473755164431,37.1464947851393,37.1464929450989]}]],[[{"lng":[-3.18771207589255,-3.18771439199666,-3.18654891636834,-3.18655336427941,-3.18771207589255],"lat":[37.1455557622876,37.1464929450989,37.1464947851393,37.1455636607037,37.1455557622876]}]],[[{"lng":[-3.1888363071488,-3.18883357936727,-3.18771522871314,-3.18771907051786,-3.1888363071488],"lat":[37.1483841432739,37.1492845577254,37.1492993726368,37.1483859179901,37.1483841432739]}]],[[{"lng":[-3.18883846081502,-3.1888363071488,-3.18771907051786,-3.18771685490647,-3.18883846081502],"lat":[37.147479880822,37.1483841432739,37.1483859179901,37.1474894832858,37.147479880822]}]],[[{"lng":[-3.18771907051786,-3.18771522871314,-3.18660118460339,-3.18660414411368,-3.18771907051786],"lat":[37.1483859179901,37.1492993726368,37.149298347876,37.1483876785381,37.1483859179901]}]],[[{"lng":[-3.18771685490647,-3.18771907051786,-3.18660414411368,-3.18660368792848,-3.18771685490647],"lat":[37.1474894832858,37.1483859179901,37.1483876785381,37.1474864921365,37.1474894832858]}]],[[{"lng":[-3.18815102300458,-3.1881480551702,-3.18703633514677,-3.18703409735382,-3.18815102300458],"lat":[37.1445954355621,37.1455082147752,37.1455098493223,37.1446010396071,37.1445954355621]}]],[[{"lng":[-3.18815397439731,-3.18815102300458,-3.18703409735382,-3.18703024686115,-3.18815397439731],"lat":[37.14368770571,37.1445954355622,37.1446010396071,37.1436910353933,37.14368770571]}]],[[{"lng":[-3.18703409735382,-3.18703633514677,-3.18591669818568,-3.18591795162658,-3.18703409735382],"lat":[37.1446010396071,37.1455098493223,37.145506172764,37.144598951883,37.1446010396071]}]],[[{"lng":[-3.18703024686115,-3.18703409735382,-3.18591795162658,-3.18591920151077,-3.18703024686115],"lat":[37.1436910353933,37.1446010396071,37.144598951883,37.1436943170245,37.1436910353933]}]],[[{"lng":[-3.18815753045745,-3.18815019429608,-3.18703871031178,-3.18702943654285,-3.18815753045745],"lat":[37.1427062800775,37.1436078415556,37.1436068296392,37.14270806543,37.1427062800775]}]],[[{"lng":[-3.18815611352319,-3.18815753045745,-3.18702943654285,-3.18702411264934,-3.18815611352319],"lat":[37.1417873324905,37.1427062800775,37.14270806543,37.1417906866486,37.1417873324905]}]],[[{"lng":[-3.18702943654285,-3.18703871031178,-3.18591883731156,-3.18592222854146,-3.18702943654285],"lat":[37.14270806543,37.1436068296392,37.1436057995444,37.1427098072879,37.14270806543]}]],[[{"lng":[-3.18702411264934,-3.18702943654285,-3.18592222854146,-3.18592134063665,-3.18702411264934],"lat":[37.1417906866486,37.14270806543,37.1427098072878,37.141793943805,37.1417906866486]}]],[[{"lng":[-3.19050090650789,-3.19050634066459,-3.18940120236363,-3.18939673235521,-3.19050090650789],"lat":[37.1437842408192,37.1446844543116,37.144683448202,37.143786010275,37.1437842408192]}]],[[{"lng":[-3.19051225989171,-3.19050090650789,-3.18939673235521,-3.1893966813751,-3.19051225989171],"lat":[37.1428639452464,37.1437842408192,37.143786010275,37.1428672508219,37.1428639452464]}]],[[{"lng":[-3.18939673235521,-3.18940120236363,-3.18827498368008,-3.18827622287144,-3.18939673235521],"lat":[37.143786010275,37.144683448202,37.1446824123004,37.1437855047316,37.143786010275]}]],[[{"lng":[-3.1893966813751,-3.18939673235521,-3.18827622287144,-3.18827748700517,-3.1893966813751],"lat":[37.1428672508219,37.143786010275,37.1437855047316,37.1428705565609,37.1428672508219]}]],[[{"lng":[-3.19117523825734,-3.19117229312808,-3.1900740283379,-3.19007707839823,-3.19117523825734],"lat":[37.1456728569286,37.1465786531044,37.1465776532844,37.145677902323,37.1456728569286]}]],[[{"lng":[-3.19117821235519,-3.19117523825734,-3.19007707839823,-3.19007477402112,-3.19117821235519],"lat":[37.1447581440393,37.1456728569286,37.145677902323,37.1447570281927,37.1447581440393]}]],[[{"lng":[-3.19007707839823,-3.1900740283379,-3.18894093614356,-3.18895147000042,-3.19007707839823],"lat":[37.145677902323,37.1465776532844,37.1465766110932,37.145679702034,37.145677902323]}]],[[{"lng":[-3.19007477402112,-3.19007707839823,-3.18895147000042,-3.18894343946865,-3.19007477402112],"lat":[37.1447570281927,37.145677902323,37.145679702034,37.1447647553537,37.1447570281927]}]],[[{"lng":[-3.19596226531282,-3.19594821346026,-3.19484600763784,-3.19484367791897,-3.19596226531282],"lat":[37.1601712391212,37.1610825924844,37.1610844097538,37.1601767044063,37.1601712391212]}]],[[{"lng":[-3.19360684046111,-3.193600921234,-3.19136956424949,-3.19137206757457,-3.19360684046111],"lat":[37.158294920643,37.1601154297081,37.160113387697,37.1583015319575,37.158294920643]}]],[[{"lng":[-3.1929033174537,-3.19289739822659,-3.19066604124207,-3.19066854456716,-3.1929033174537],"lat":[37.1428538577167,37.1446743667818,37.1446723247707,37.1428604690312,37.1428538577167]}]],[[{"lng":[-3.19052838905183,-3.19052246982472,-3.1882911128402,-3.18829361616529,-3.19052838905183],"lat":[37.1409866342433,37.1428071433085,37.1428051012973,37.1409932455578,37.1409866342433]}]],[[{"lng":[-3.19595846966271,-3.19484027997295,-3.19484159025394,-3.19596143281416,-3.19595846966271],"lat":[37.160103370184,37.1601023521318,37.1591928081234,37.1591920309522,37.160103370184]}]],[[{"lng":[-3.15335824641549,-3.15223769960335,-3.15222914258461,-3.15335471362086,-3.15335824641549],"lat":[37.1412142163018,37.1412144220215,37.1403194422501,37.1403258664584,37.1412142163018]}]],[[{"lng":[-3.15098767893924,-3.14986994892607,-3.14986819957243,-3.15097453004848,-3.15098767893924],"lat":[37.1420263596593,37.1420250612381,37.1411383188518,37.141136914913,37.1420263596593]}]],[[{"lng":[-3.14862952600203,-3.14750323463251,-3.14750319160308,-3.14862597658283,-3.14862952600203],"lat":[37.1420293285082,37.1420295352553,37.1411370912646,37.1411367980653,37.1420293285082]}]],[[{"lng":[-3.15099070127466,-3.14986623234228,-3.14986655639044,-3.15098711354554,-3.15099070127466],"lat":[37.1401385091261,37.1401410889497,37.1392469526684,37.1392363452494,37.1401385091261]}]],[[{"lng":[-3.14862569590618,-3.14750655741685,-3.14749368775821,-3.14862213021554,-3.14862569590618],"lat":[37.1401362480468,37.1401224781456,37.139248111834,37.1392468838982,37.1401362480468]}]],[[{"lng":[-3.14863661364675,-3.14638646065616,-3.14637935793391,-3.14863286322571,-3.14863661364675],"lat":[37.1439315266425,37.1439287118154,37.142146243994,37.1421376260288,37.1439315266425]}]],[[{"lng":[-3.1510035468095,-3.14875002316514,-3.14875641834014,-3.15099642573469,-3.1510035468095],"lat":[37.1363524587667,37.1363528617183,37.1345622632754,37.1345617759317,37.1363524587667]}]],[[{"lng":[-3.15334389818173,-3.15109037453737,-3.15109676971237,-3.15333677710692,-3.15334389818173],"lat":[37.1355403743771,37.1355407773287,37.1337501788858,37.1337496915421,37.1355403743771]}]],[[{"lng":[-3.15223769960335,-3.15110472277112,-3.15110794120953,-3.15223270382014,-3.15223769960335],"lat":[37.1412144220215,37.1412146192534,37.1403134874189,37.1403256282499,37.1412144220215]}]],[[{"lng":[-3.15335471362086,-3.15223473820303,-3.1522293224339,-3.15335112534068,-3.15335471362086],"lat":[37.1403258664585,37.1403249596549,37.1394226870297,37.1394235334668,37.1403258664585]}]],[[{"lng":[-3.15223473399387,-3.15110794120953,-3.15111111794613,-3.1522293224339,-3.15223473399387],"lat":[37.1403228591002,37.1403134874189,37.1394240208105,37.1394226870297,37.1403228591002]}]],[[{"lng":[-3.15097453004848,-3.14986819957243,-3.14986125151162,-3.15098055786443,-3.15097453004848],"lat":[37.141136914913,37.1411383188518,37.1402359256357,37.1402356768243,37.141136914913]}]],[[{"lng":[-3.14986994892607,-3.14873415529488,-3.14873125808862,-3.14986819957243,-3.14986994892607],"lat":[37.1420250612381,37.1420267626109,37.1411397508778,37.1411383188518,37.1420250612381]}]],[[{"lng":[-3.14986819957243,-3.14873125808862,-3.14871203453027,-3.14986125151162,-3.14986819957243],"lat":[37.1411383188518,37.1411397508778,37.1402465696215,37.1402359256357,37.1411383188518]}]],[[{"lng":[-3.14986623234228,-3.14873717763029,-3.14874770414509,-3.14986103337272,-3.14986623234228],"lat":[37.1401410889497,37.1401389120777,37.1392467465884,37.1392424095674,37.1401410889497]}]],[[{"lng":[-3.14750210677418,-3.14637987630218,-3.14638239753268,-3.14750190048335,-3.14750210677418],"lat":[37.1411399603644,37.1411426779438,37.1402391330169,37.1402429618297,37.1411399603644]}]],[[{"lng":[-3.14750323463251,-3.14637600235767,-3.14637987630218,-3.14750065819327,-3.14750323463251],"lat":[37.1420295352553,37.1420297314598,37.1411426779438,37.1411379658268,37.1420295352553]}]],[[{"lng":[-3.14862597658283,-3.14750004489725,-3.14750190048335,-3.14862240492722,-3.14862597658283],"lat":[37.1411367980653,37.1411452959483,37.1402429618297,37.1402386456733,37.1411367980653]}]],[[{"lng":[-3.15098711354554,-3.14986782026092,-3.14986269956999,-3.15098358019985,-3.15098711354554],"lat":[37.1392363452494,37.1392467318875,37.1383501294778,37.1383478262911,37.1392363452494]}]],[[{"lng":[-3.14986538931217,-3.14874770414509,-3.1487435728053,-3.14986269956999,-3.14986538931217],"lat":[37.1392424981935,37.1392467465884,37.1383483136348,37.1383501294778,37.1392424981935]}]],[[{"lng":[-3.14986073154815,-3.14874797118811,-3.14875116341906,-3.14985771524752,-3.14986073154815],"lat":[37.1373523604344,37.1373526742381,37.1364588692564,37.1364586338015,37.1373523604344]}]],[[{"lng":[-3.14861901825552,-3.14749183720091,-3.1474945586123,-3.14861544137778,-3.14861901825552],"lat":[37.1373586412652,37.1373578355933,37.1364611242198,37.1364591757043,37.1373586412652]}]],[[{"lng":[-3.14986733591172,-3.14874476824405,-3.14874797118811,-3.14986073154815,-3.14986733591172],"lat":[37.1382492723286,37.1382494676993,37.1373526742381,37.1373523604344,37.1382492723286]}]],[[{"lng":[-3.15099284993125,-3.14986073154815,-3.14985771524752,-3.1509911708136,-3.15099284993125],"lat":[37.1373509237716,37.1373523604344,37.1364586338015,37.1364583819127,37.1373509237716]}]],[[{"lng":[-3.14749030042065,-3.14636903880822,-3.14637183811339,-3.1474913822635,-3.14749030042065],"lat":[37.1382500663537,37.1382502614909,37.1373567198503,37.137352136154,37.1382500663537]}]],[[{"lng":[-3.14862256245259,-3.14749030042065,-3.14749503003887,-3.14861901825552,-3.14862256245259],"lat":[37.1382498585393,37.1382500663537,37.1373579543038,37.1373586412652,37.1382498585393]}]],[[{"lng":[-3.15099829188841,-3.14986733591172,-3.14986073154815,-3.15099284993125,-3.15099829188841],"lat":[37.1382490647477,37.1382492723286,37.1373523604344,37.1373509237716,37.1382490647477]}]],[[{"lng":[-3.1474930635955,-3.14637816627217,-3.14636862797173,-3.14747930315351,-3.1474930635955],"lat":[37.1392517759589,37.1392508658448,37.1383605701929,37.1383585377415,37.1392517759589]}]],[[{"lng":[-3.14862213021554,-3.14749368775821,-3.14747930315351,-3.14862039954681,-3.14862213021554],"lat":[37.1392468838982,37.139248111834,37.1383585377415,37.1383619648215,37.1392468838982]}]],[[{"lng":[-3.14750655741685,-3.1463747100461,-3.14637816627217,-3.14749368775821,-3.14750655741685],"lat":[37.1401224781456,37.1401252523622,37.1392508658448,37.139248111834,37.1401224781456]}]],[[{"lng":[-3.1474913822635,-3.14637183811339,-3.14637543398323,-3.1474945586123,-3.1474913822635],"lat":[37.137352136154,37.1373567198503,37.136459663048,37.1364611242198,37.137352136154]}]],[[{"lng":[-3.15335991774753,-3.15222508983614,-3.15222733554153,-3.15335639575351,-3.15335991774753],"lat":[37.1393228663249,37.139323074598,37.1384310501994,37.1384372324264,37.1393228663249]}]],[[{"lng":[-3.15110959524068,-3.15111278927818,-3.15222552793857,-3.15222733554153,-3.15110959524068],"lat":[37.1384269815554,37.1375326708336,37.1375288524811,37.1384310501994,37.1384269815554]}]],[[{"lng":[-3.15335639575351,-3.15222733554153,-3.15222552793856,-3.15335279667272,-3.15335639575351],"lat":[37.1384372324264,37.1384310501994,37.1375288524811,37.1375321834899,37.1384372324264]}]],[[{"lng":[-3.15222508983614,-3.15110639410317,-3.15110959524068,-3.15222733554153,-3.15222508983614],"lat":[37.139323074598,37.1393232692766,37.1384269815554,37.1384310501994,37.139323074598]}]],[[{"lng":[-3.15222354294548,-3.15110317166391,-3.15110898299562,-3.1522242855165,-3.15222354294548],"lat":[37.1365380706332,37.136539504065,37.1356430044969,37.1356427671388,37.1365380706332]}]],[[{"lng":[-3.15335252881879,-3.15222354294548,-3.1522242855165,-3.15334899039016,-3.15335252881879],"lat":[37.1365323143494,37.1365380706332,37.1356427671388,37.1356425171532,37.1365323143494]}]],[[{"lng":[-3.15223095380603,-3.15110258782061,-3.15110317166391,-3.15222354294548,-3.15223095380603],"lat":[37.1374334065323,37.1374336029398,37.136539504065,37.1365380706332,37.1374334065323]}]],[[{"lng":[-3.15335611146497,-3.15223095380603,-3.15222354294548,-3.15335252881879,-3.15335611146497],"lat":[37.1374331999882,37.1374334065323,37.1365380706332,37.1365323143494,37.1374331999882]}]],[[{"lng":[-3.31846622060182,-3.31734384114762,-3.31734259867938,-3.31846241686538,-3.31846622060182],"lat":[36.9628627260071,36.9628673769539,36.9619505373198,36.9619474437774,36.9628627260071]}]],[[{"lng":[-3.3174616141263,-3.31633639186067,-3.31633510429335,-3.31745723966944,-3.3174616141263],"lat":[36.9637818390355,36.9637792579881,36.9628677862516,36.962861749002,36.9637818390355]}]],[[{"lng":[-3.31734370907776,-3.31621696012724,-3.31621666360885,-3.31734258541219,-3.31734370907776],"lat":[36.9628677617671,36.9628687372334,36.9619581016374,36.9619547565459,36.9628677617671]}]],[[{"lng":[-3.31633638966376,-3.31521078722826,-3.31521198051309,-3.31633514195483,-3.31633638966376],"lat":[36.9637777028557,36.9637807017813,36.9628677220372,36.9628694244874,36.9637777028557]}]],[[{"lng":[-3.30396579417909,-3.30285965401403,-3.30285600228886,-3.30396824805359,-3.30396579417909],"lat":[36.9639830450945,36.9639852913129,36.9630633497186,36.9630687243296,36.9639830450945]}]],[[{"lng":[-3.30398056223129,-3.30286294546818,-3.30285965401403,-3.30397025678698,-3.30398056223129],"lat":[36.964905116399,36.9649021719841,36.9639852913129,36.9639800687304,36.964905116399]}]],[[{"lng":[-3.30655957139234,-3.30544467704487,-3.30543786596091,-3.30655440021262,-3.30655957139234],"lat":[36.963439296904,36.9634378028663,36.9625298563399,36.9625252913302,36.963439296904]}]],[[{"lng":[-3.30656811885166,-3.30544057466727,-3.30544552774889,-3.30655852986575,-3.30656811885166],"lat":[36.9643477541037,36.9643506668124,36.9634309094161,36.9634401606325,36.9643477541037]}]],[[{"lng":[-3.30769307290027,-3.30657422118234,-3.30655573978079,-3.30769661202581,-3.30769307290027],"lat":[36.9643452554312,36.9643477405784,36.9634365699217,36.9634290307065,36.9643452554312]}]],[[{"lng":[-3.30181341375538,-3.30069854025242,-3.30069549204403,-3.30181053106938,-3.30181341375538],"lat":[36.9550636434363,36.955066778533,36.9541511695936,36.9541486560113,36.9550636434363]}]],[[{"lng":[-3.30293879264554,-3.30181341375538,-3.30181053106938,-3.30293668342681,-3.30293879264554],"lat":[36.9550607012252,36.9550636434363,36.9541486560113,36.9541419610918,36.9550607012252]}]],[[{"lng":[-3.30294511638727,-3.30182450540431,-3.30181341375538,-3.30293879264554,-3.30294511638727],"lat":[36.9559717951988,36.9559744661938,36.9550636434363,36.9550607012252,36.9559717951988]}]],[[{"lng":[-3.30182450540431,-3.30070287676381,-3.30069854025242,-3.30181341375538,-3.30182450540431],"lat":[36.9559744661938,36.955981180051,36.955066778533,36.9550636434363,36.9559744661938]}]],[[{"lng":[-3.30182088401294,-3.30069984404522,-3.30069786298405,-3.30181728557633,-3.30182088401294],"lat":[36.9569566614077,36.956959505433,36.9560549675148,36.9560448133707,36.9569566614077]}]],[[{"lng":[-3.30293350210376,-3.301820882372,-3.30181728557633,-3.30293035519088,-3.30293350210376],"lat":[36.956953828284,36.9569562456006,36.9560448133707,36.9560416545728,36.956953828284]}]],[[{"lng":[-3.30293101633707,-3.3018233361568,-3.301820882372,-3.30293350210376,-3.30293101633707],"lat":[36.957860705172,36.9578666635588,36.9569562456006,36.956953828284,36.957860705172]}]],[[{"lng":[-3.30183090087143,-3.30070644822436,-3.30069984404522,-3.30182088401294,-3.30183090087143],"lat":[36.9578666229021,36.9578661864837,36.956959505433,36.9569566614077,36.9578666229021]}]],[[{"lng":[-3.29811667833217,-3.29700413711115,-3.29700976056068,-3.29811310648952,-3.29811667833217],"lat":[36.957611927468,36.9576091798391,36.9566983584003,36.9566955936401,36.957611927468]}]],[[{"lng":[-3.2992389411993,-3.29811667833217,-3.29811310648952,-3.29923690889138,-3.2992389411993],"lat":[36.9576027491521,36.957611927468,36.9566955936401,36.9566914866141,36.9576027491521]}]],[[{"lng":[-3.29957158170981,-3.29845746767259,-3.2984469005909,-3.29957185463951,-3.29957158170981],"lat":[36.9585849598139,36.9585877652428,36.9576767487617,36.9576742500892,36.9585849598139]}]],[[{"lng":[-3.29845746767259,-3.29733279129881,-3.29732845478742,-3.29845340883603,-3.29845746767259],"lat":[36.9585877652428,36.9585908578742,36.9576764563561,36.9576739576837,36.9585877652428]}]],[[{"lng":[-3.29923690889138,-3.29811310648952,-3.29810958020663,-3.29923103043344,-3.29923690889138],"lat":[36.9566914866141,36.9566955936401,36.9557909070942,36.9557895017308,36.9566914866141]}]],[[{"lng":[-3.29811310648952,-3.29700976056068,-3.29701072602651,-3.29810958020663,-3.29811310648952],"lat":[36.9566955936401,36.9566983584003,36.9557978322448,36.9557909070942,36.9566955936401]}]],[[{"lng":[-3.30250237308424,-3.30138777524222,-3.30138328161885,-3.30249869256335,-3.30250237308424],"lat":[36.9588479536176,36.9588507978139,36.9579381102071,36.9579306035896,36.9588479536176]}]],[[{"lng":[-3.29845697410603,-3.29733636312307,-3.29733202661168,-3.29845746767259,-3.29845697410603],"lat":[36.959504380675,36.95950705167,36.958592650152,36.9585877652428,36.959504380675]}]],[[{"lng":[-3.29957544699821,-3.29845483601526,-3.29845746767259,-3.29957158170981,-3.29957544699821],"lat":[36.9595077773275,36.9595104483224,36.9585877652428,36.9585849598139,36.9595077773275]}]],[[{"lng":[-3.29913884290002,-3.29801774461218,-3.29801548906728,-3.29913524618588,-3.29913884290002],"lat":[36.9604806966151,36.9604819056423,36.9595626687423,36.9595612312109,36.9604806966151]}]],[[{"lng":[-3.3002670754481,-3.29913883988791,-3.29913602868251,-3.30026180974628,-3.3002670754481],"lat":[36.9604762391168,36.9604799266157,36.9595648642849,36.9595585209164,36.9604762391168]}]],[[{"lng":[-3.29981639344511,-3.29869452503043,-3.29868549471221,-3.29981281494481,-3.29981639344511],"lat":[36.9613894882593,36.9613916759108,36.9604796152702,36.9604767768297,36.9613894882593]}]],[[{"lng":[-3.30093931921547,-3.29981647224761,-3.29981281949276,-3.30093399883665,-3.30093931921547],"lat":[36.9613910678492,36.9613869998011,36.960477936828,36.9604745508105,36.9613910678492]}]],[[{"lng":[-3.30363059876595,-3.30250237310684,-3.30249868975926,-3.30362091924892,-3.30363059876595],"lat":[36.9588443033674,36.9588479636516,36.9579298946634,36.9579269064791,36.9588443033674]}]],[[{"lng":[-3.3028429059273,-3.30171361996504,-3.30171016557047,-3.30284047318488,-3.3028429059273],"lat":[36.959756599058,36.9597557805212,36.958848642403,36.9588469767637,36.959756599058]}]],[[{"lng":[-3.30396743653513,-3.3028429059273,-3.30283973741956,-3.30396311890629,-3.30396743653513],"lat":[36.9597540659348,36.959756599058,36.958845863268,36.9588436459294,36.9597540659348]}]],[[{"lng":[-3.30769091310591,-3.30655522523916,-3.30656017138314,-3.30768034580079,-3.30769091310591],"lat":[36.9634243512676,36.9634415399465,36.9625203634842,36.9625190085339,36.9634243512676]}]],[[{"lng":[-3.30286294546705,-3.30173472543088,-3.30173473198514,-3.30285965401403,-3.30286294546705],"lat":[36.9649021717464,36.9649060785788,36.9639918493832,36.9639852913129,36.9649021717464]}]],[[{"lng":[-3.30285965401403,-3.30173473198514,-3.30174935758879,-3.30285601960144,-3.30285965401403],"lat":[36.9639852913129,36.9639918493832,36.9630781165701,36.9630677206806,36.9639852913129]}]],[[{"lng":[-3.30057079937357,-3.29833817962387,-3.29833970160788,-3.30057201236426,-3.30057079937357],"lat":[36.9557112529615,36.9557167297296,36.9538892455329,36.9538775291931,36.9557112529615]}]],[[{"lng":[-3.29722675273251,-3.29497437345976,-3.29496647137988,-3.29721890009056,-3.29722675273251],"lat":[36.9595090423722,36.9595145316982,36.9576780723279,36.957679667626,36.9595090423722]}]],[[{"lng":[-3.31578145487656,-3.31353456238952,-3.31355119239291,-3.31578102561406,-3.31578145487656],"lat":[36.9656866817732,36.9656824664689,36.9638539757942,36.9638461287036,36.9656866817732]}]],[[{"lng":[-2.69101357674579,-2.68989297341219,-2.68989451294743,-2.69101993088744,-2.69101357674579],"lat":[37.0899901513903,37.0899872264386,37.0890916026611,37.0890853988682,37.0899901513903]}]],[[{"lng":[-2.67762633448312,-2.67650055683615,-2.67651218919916,-2.67762529472163,-2.67762633448312],"lat":[37.0876112342374,37.087603474016,37.0867063503392,37.086709381252,37.0876112342374]}]],[[{"lng":[-2.68763906098232,-2.68650645516086,-2.6865089598167,-2.68764276675219,-2.68763906098232],"lat":[37.0897108836228,37.0897150174534,37.0888108679766,37.0888079005378,37.0897108836228]}]],[[{"lng":[-2.67527179653969,-2.67303865496777,-2.67304360434615,-2.67526988438501,-2.67527179653969],"lat":[37.0854476925747,37.0854322886347,37.0836456727585,37.0836586029521,37.0854476925747]}]],[[{"lng":[-2.69515979029049,-2.69404294414241,-2.6940549819734,-2.69517003956284,-2.69515979029049],"lat":[37.0921705022668,37.09216142687,37.0912644946789,37.0912677035169,37.0921705022668]}]],[[{"lng":[-2.67651643493634,-2.67540362623101,-2.67540191675803,-2.6765202334669,-2.67651643493634],"lat":[37.0857072679966,37.0856961118035,37.0848103222814,37.0848133777724,37.0857072679966]}]],[[{"lng":[-2.6943881179468,-2.69324902524479,-2.69325980117781,-2.69439175121474,-2.6943881179468],"lat":[37.090269323236,37.0902724457865,37.089361090404,37.0893644735097,37.090269323236]}]],[[{"lng":[-2.69549501205027,-2.6943881179468,-2.69439175121474,-2.69550121854265,-2.69549501205027],"lat":[37.0902721705199,37.090269323236,37.0893644735097,37.0893740597505,37.0902721705199]}]],[[{"lng":[-2.69437935760969,-2.69325218711058,-2.69324907411564,-2.6943881179468,-2.69437935760969],"lat":[37.0911625108072,37.0911619148011,37.0902603190235,37.090269323236,37.0911625108072]}]],[[{"lng":[-2.69550313069734,-2.69437938615218,-2.6943881179468,-2.69549501205027,-2.69550313069734],"lat":[37.0911631493731,37.0911554031762,37.090269323236,37.0902721705199,37.0911631493731]}]],[[{"lng":[-2.69212269021114,-2.69100993734137,-2.69101302342729,-2.69212175494678,-2.69212269021114],"lat":[37.0908973049585,37.0908866045465,37.0899947540413,37.0899905886692,37.0908973049585]}]],[[{"lng":[-2.6910053555216,-2.68988496681945,-2.6898883766626,-2.69100897999619,-2.6910053555216],"lat":[37.0908829100839,37.0908782065559,37.0899872144572,37.0899901394089,37.0908829100839]}]],[[{"lng":[-2.69212175493967,-2.69101356180885,-2.69101991595051,-2.69212460368437,-2.69212175493967],"lat":[37.0899905886697,37.089993833872,37.0890890813499,37.0890831784682,37.0899905886697]}]],[[{"lng":[-2.68638393567533,-2.6841507941034,-2.68415574348179,-2.68638202352064,-2.68638393567533],"lat":[37.0905947324785,37.0905793285386,37.0887927126624,37.0888056428559,37.0905947324785]}]],[[{"lng":[-2.68875608622982,-2.68765146260754,-2.68764283288567,-2.68875711532902,-2.68875608622982],"lat":[37.0906099061207,37.0906080860257,37.0897139252806,37.0897138231748,37.0906099061207]}]],[[{"lng":[-2.68875711532902,-2.68763906098232,-2.68764276675219,-2.68875417407513,-2.68875711532902],"lat":[37.0897138231748,37.0897108836228,37.0888079005378,37.0888208164981,37.0897138231748]}]],[[{"lng":[-2.68765312235564,-2.68650514151175,-2.68650764500467,-2.68763906098232,-2.68765312235564],"lat":[37.0906083767288,37.0906086705249,37.0897119888757,37.0897108836228,37.0906083767288]}]],[[{"lng":[-2.67650055683615,-2.67539319291119,-2.67539565388111,-2.67651218919916,-2.67650055683615],"lat":[37.087603474016,37.0875958302974,37.0867074994447,37.0867063503392,37.087603474016]}]],[[{"lng":[-2.67762529472163,-2.67651218919916,-2.67651595953145,-2.67762442232843,-2.67762529472163],"lat":[37.086709381252,37.0867063503392,37.0858191399864,37.0858221446148,37.086709381252]}]],[[{"lng":[-2.67651218919916,-2.67539565388111,-2.67539814228957,-2.67651595953145,-2.67651218919916],"lat":[37.0867063503392,37.0867074994447,37.0858092144212,37.0858191399864,37.0867063503392]}]],[[{"lng":[-2.67763676780293,-2.67651643493634,-2.67652023346586,-2.67763581550843,-2.67763676780293],"lat":[37.0857115157435,37.0857072679966,37.0848133777706,37.0848204842892,37.0857115157435]}]],[[{"lng":[-2.67763581550843,-2.67652023346502,-2.67652404859102,-2.67763485564825,-2.67763581550843],"lat":[37.0848204842892,37.0848133777717,37.083915542934,37.0839224261208,37.0848204842892]}]],[[{"lng":[-2.6765202334661,-2.67540191675803,-2.67540857560939,-2.67652404859102,-2.6765202334661],"lat":[37.0848133777715,37.0848103222814,37.0839094959273,37.083915542934,37.0848133777715]}]],[[{"lng":[-2.69404294414241,-2.69291552687613,-2.6929181772417,-2.6940549819734,-2.69404294414241],"lat":[37.09216142687,37.0921585128381,37.0912578869158,37.0912644946789,37.09216142687]}]],[[{"lng":[-2.69403934714444,-2.69291322786332,-2.69291552687613,-2.69404294414241,-2.69403934714444],"lat":[37.093056131568,37.093044502792,37.0921585128381,37.09216142687,37.093056131568]}]],[[{"lng":[-2.69516074722029,-2.69403934714443,-2.69403934396214,-2.69516340202619,-2.69516074722029],"lat":[37.0930657118655,37.093056131568,37.0921614176143,37.092167627463,37.0930657118655]}]],[[{"lng":[-2.69751618625258,-2.69528304468066,-2.69528799405904,-2.6975142740979,-2.69751618625258],"lat":[37.0930660096744,37.0930506057344,37.0912639898582,37.0912769200517,37.0930660096744]}]]],null,"C1-Adpatamed",{"interactive":true,"className":"","stroke":true,"color":"blue","weight":1,"opacity":0.5,"fill":true,"fillColor":"green","fillOpacity":0.6,"smoothFactor":1,"noClip":false},["<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T1_A1<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 2","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T1_A2<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 2","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T1_A4<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 2.9","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T2_C2<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 2.5","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T2_C4<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 5.6","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T2_C1<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 1.8","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T2_C3<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 3.1","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T3_B2<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 4.4","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T3_B3<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 5.8","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T3_B1<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 5.6","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T2_B4<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 3.2","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T2_B2<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> NA","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T2_B3<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 2","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T2_B1<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 5.4","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T1_B4<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 2.8","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T1_B2<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 2","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T1_B3<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 5.4","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T1_B1<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 2.2","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T1_C2<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 1.4","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T1_C4<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 2.4","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T1_C1<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> NA","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T1_C3<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 2.8","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T3_C2<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 5.3","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T3_C4<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 1.8","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T3_C1<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 2.3","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T3_C3<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 2.6","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T2_A1<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 5","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T2_A3<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 3.5","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T2_A2<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 2.4","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T2_A4<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 1.8","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T3_A1<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 2.9","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T3_A3<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 5","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T3_A2<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 2.7","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T3_A4<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 1.6","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T1_A3<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 4.6","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T1_CONTROL<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 1.7","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T2_CONTROL<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 3.2","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T3_CONTROL<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 4","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T3_B4<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 5.2","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T1_A1<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 2.626","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T2_A1<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 3.665","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T3_A1<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 4.713","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T1_B4<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 2.711","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T2_B4<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 4.162","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T3_CONTROL<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 3.53","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T2_CONTROL<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 5.216","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T1_CONTROL<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 3.588","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T1_A2<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 1.545","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T1_A3<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 1.501","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T1_A4<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 3.677","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T2_A3<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 3.439","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T2_A2<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 3.761","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T2_A4<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 2.839","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T1_B3<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 2.929","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T3_A4<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 5.362","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T3_A2<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 3.387","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T3_A3<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 2.696","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T1_B2<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 4.38","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T1_B1<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 2.47","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T3_C3<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 4.616","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T1_C4<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 5.395","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T3_C1<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 2.83","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T3_C4<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 4.043","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T1_C1<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 3.633","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T1_C2<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 2.05","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T3_C2<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 5.35","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T2_B1<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 1.722","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T2_B2<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 2.205","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T2_B3<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 4.117","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T1_C3<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 2.416","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T3_B4<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 2.033","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T3_B1<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 5.16","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T3_B2<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 3.612","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T3_B3<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 1.815","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T2_C3<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 5.042","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T2_C4<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 2.976","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T2_C1<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 2.051","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T2_C2<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 1.137","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T1_A3<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 4.3","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T1_A1<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 5","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T1_A4<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 2.1","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T1_A2<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 3.2","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T3_C4<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 5.9","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T3_C2<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 5.5","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T2_B1<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 1.7","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T2_B3<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 2.6","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T2_B4<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 3.7","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T2_C3<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 3.7","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T2_C4<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 4.2","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T2_C2<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 5.8","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T2_C1<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 2.1","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T3_B1<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 1.3","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T3_B2<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 2.1","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T3_B4<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 5.4","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T3_B3<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 3.9","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T3_A2<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 0.8","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T3_A1<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 1.5","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T1_B2<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 1.9","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T1_B1<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 1.9","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T3_A3<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 4.1","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T3_A4<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 1.9","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T1_C3<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 2.8","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T1_B3<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 3.9","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T1_B4<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 3.8","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T2_A4<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 2.8","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T2_A3<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 2.6","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T2_A2<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 3.2","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T2_A1<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 2.7","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T1_C4<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 4.6","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T1_C1<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 2.9","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T1_C2<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 2.7","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T2_B2<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 2.6","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T3_C1<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 3.9","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T3_C3<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 3.9","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T2_CONTROL<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 2.8","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T3_CONTROL<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 3.8","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T1_CONTROL<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 2.3","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T2_B1<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 1.88","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T2_C2<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 2.42","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T3_A4<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 2.22","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_E _CONTROL<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 1.73","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T2_A3<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 1.03","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T3_B3<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 1.37","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T3_C3<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 0.57","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T3_C4<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 0.89","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T3_C1<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 1.26","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T3_C2<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 2","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T2_B4<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 0.84","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T2_B3<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 3.99","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T2_B2<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 2.82","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_C_CONTROL<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 1.05","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T3_A1<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 3.79","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T3_A3<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 1.3","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T3_A2<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 3.14","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T2_C1<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 2.55","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T2_C4<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 2.36","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T2_C3<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 1.08","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T3_B4<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 1.51","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T3_B2<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 0.58","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T3_B1<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 1.32","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T2_A4<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 1.16","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T2_A2<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 1.67","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T2_A1<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 2.38","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_W_CONTROL<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 2.1"],null,["PP_T1_A1","PP_T1_A2","PP_T1_A4","PP_T2_C2","PP_T2_C4","PP_T2_C1","PP_T2_C3","PP_T3_B2","PP_T3_B3","PP_T3_B1","PP_T2_B4","PP_T2_B2","PP_T2_B3","PP_T2_B1","PP_T1_B4","PP_T1_B2","PP_T1_B3","PP_T1_B1","PP_T1_C2","PP_T1_C4","PP_T1_C1","PP_T1_C3","PP_T3_C2","PP_T3_C4","PP_T3_C1","PP_T3_C3","PP_T2_A1","PP_T2_A3","PP_T2_A2","PP_T2_A4","PP_T3_A1","PP_T3_A3","PP_T3_A2","PP_T3_A4","PP_T1_A3","PP_T1_CONT","PP_T2_CONT","PP_T3_CONT","PP_T3_B4","PN_T1_A1","PN_T2_A1","PN_T3_A1","PN_T1_B4","PN_T2_B4","PN_T3_CONT","PN_T2_CONT","PN_T1_CONT","PN_T1_A2","PN_T1_A3","PN_T1_A4","PN_T2_A3","PN_T2_A2","PN_T2_A4","PN_T1_B3","PN_T3_A4","PN_T3_A2","PN_T3_A3","PN_T1_B2","PN_T1_B1","PN_T3_C3","PN_T1_C4","PN_T3_C1","PN_T3_C4","PN_T1_C1","PN_T1_C2","PN_T3_C2","PN_T2_B1","PN_T2_B2","PN_T2_B3","PN_T1_C3","PN_T3_B4","PN_T3_B1","PN_T3_B2","PN_T3_B3","PN_T2_C3","PN_T2_C4","PN_T2_C1","PN_T2_C2","PS_T1_A3","PS_T1_A1","PS_T1_A4","PS_T1_A2","PS_T3_C4","PS_T3_C2","PS_T2_B1","PS_T2_B3","PS_T2_B4","PS_T2_C3","PS_T2_C4","PS_T2_C2","PS_T2_C1","PS_T3_B1","PS_T3_B2","PS_T3_B4","PS_T3_B3","PS_T3_A2","PS_T3_A1","PS_T1_B2","PS_T1_B1","PS_T3_A3","PS_T3_A4","PS_T1_C3","PS_T1_B3","PS_T1_B4","PS_T2_A4","PS_T2_A3","PS_T2_A2","PS_T2_A1","PS_T1_C4","PS_T1_C1","PS_T1_C2","PS_T2_B2","PS_T3_C1","PS_T3_C3","PS_T2_CONT","PS_T3_CONT","PS_T1_CONT","PH_T2_B1","PH_T2_C2","PH_T3_A4","PH_CONT_E","PH_T2_A3","PH_T3_B3","PH_T3_C3","PH_T3_C4","PH_T3_C1","PH_T3_C2","PH_T2_B4","PH_T2_B3","PH_T2_B2","PH_CONT_C","PH_T3_A1","PH_T3_A3","PH_T3_A2","PH_T2_C1","PH_T2_C4","PH_T2_C3","PH_T3_B4","PH_T3_B2","PH_T3_B1","PH_T2_A4","PH_T2_A2","PH_T2_A1","PH_CONT_W"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"style":{"color":"black"},"className":"","sticky":true},null]},{"method":"addLayersControl","args":[["Basemap","PNOA Máxima Actualidad","Satellite","Hillshade","Topographical","topo2013","orto1956","orto77-83"],"C1-Adpatamed",{"collapsed":true,"autoZIndex":true,"position":"bottomright"}]}],"limits":{"lat":[36.9538775291931,37.18253],"lng":[-3.31846622060182,-2.67303865496777]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-8ecb1f4d1bf429ffc2ec" style="width:576px;height:460.8px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8ecb1f4d1bf429ffc2ec">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addAwesomeMarkers","args":[[37.0887117751,37.1433568876,37.14837,37.132,37.15454,37.18253,37.1608918758,37.135,36.9560664917,36.9600170228,36.9659776668,37.1101,37.16982],[-2.68648579006,-3.14901680572,-3.14652,-3.147,-3.13756,-3.17767,-3.19680522926,-3.198,-3.30093000563,-3.30360778495,-3.3132139945,-2.69854,-3.05232],{"icon":"tree","markerColor":["green","gray","gray","gray","darkgreen","darkgreen","darkgreen","darkgreen","orange","orange","orange","green","green"],"iconColor":"white","spin":false,"squareMarker":false,"iconRotate":0,"prefix":"fa"},null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["<strong>Specie:<\/strong> Pinus halepensis<\/br><strong>Site:<\/strong> PIHAL_NACIMIENTO_M<\/br><strong>elev:<\/strong> 1212<\/br><strong>site_name:<\/strong> NAC_HALEPENSIS<\/br><strong>LAI:<\/strong> 1.59<\/br>","<strong>Specie:<\/strong> Pinus nigra<\/br><strong>Site:<\/strong> PINIG_LANTEIRA_M<\/br><strong>elev:<\/strong> 1646<\/br><strong>site_name:<\/strong> LANTEIRA_M<\/br><strong>LAI:<\/strong> 1.84<\/br>","<strong>Specie:<\/strong> Pinus nigra<\/br><strong>Site:<\/strong> PINIG_LANTEIRA_L2<\/br><strong>elev:<\/strong> 1585<\/br><strong>site_name:<\/strong> LANTEIRA_L2<\/br><strong>LAI:<\/strong> 1.29<\/br>","<strong>Specie:<\/strong> Pinus nigra<\/br><strong>Site:<\/strong> PINIG_LANTEIRA_H<\/br><strong>elev:<\/strong> 1810<\/br><strong>site_name:<\/strong> LANTEIRA_H<\/br><strong>LAI:<\/strong> 1.95<\/br>","<strong>Specie:<\/strong> Pinus pinaster<\/br><strong>Site:<\/strong> PIPIN_LANTEIRA_L2<\/br><strong>elev:<\/strong> 1433<\/br><strong>site_name:<\/strong> LANTERIA_L2<\/br><strong>LAI:<\/strong> 1.08<\/br>","<strong>Specie:<\/strong> Pinus pinaster<\/br><strong>Site:<\/strong> PIPIN_JEREZ_L<\/br><strong>elev:<\/strong> 1353<\/br><strong>site_name:<\/strong> JEREZ_L<\/br><strong>LAI:<\/strong> 1.48<\/br>","<strong>Specie:<\/strong> Pinus pinaster<\/br><strong>Site:<\/strong> PIPIN_JEREZ_M<\/br><strong>elev:<\/strong> 1605<\/br><strong>site_name:<\/strong> JEREZ_M<\/br><strong>LAI:<\/strong> 1.73<\/br>","<strong>Specie:<\/strong> Pinus pinaster<\/br><strong>Site:<\/strong> PIPIN_JEREZ_H<\/br><strong>elev:<\/strong> 1770<\/br><strong>site_name:<\/strong> JEREZ_H<\/br><strong>LAI:<\/strong> 1.94<\/br>","<strong>Specie:<\/strong> Pinus sylvestris<\/br><strong>Site:<\/strong> PISYL_PORTUGOS_L<\/br><strong>elev:<\/strong> 1633<\/br><strong>site_name:<\/strong> PORTUGOS_L<\/br><strong>LAI:<\/strong> 3.11<\/br>","<strong>Specie:<\/strong> Pinus sylvestris<\/br><strong>Site:<\/strong> PISYL_PORTUGOS_M<\/br><strong>elev:<\/strong> 1748<\/br><strong>site_name:<\/strong> PORTUGOS_M<\/br><strong>LAI:<\/strong> 3.36<\/br>","<strong>Specie:<\/strong> Pinus sylvestris<\/br><strong>Site:<\/strong> PISYL_PORTUGOS_H<\/br><strong>elev:<\/strong> 2000<\/br><strong>site_name:<\/strong> PORTUGOS_H<\/br><strong>LAI:<\/strong> 3.63<\/br>","<strong>Specie:<\/strong> Pinus halepensis<\/br><strong>Site:<\/strong> PIHAL_NACIMIENTO_L<\/br><strong>elev:<\/strong> 974<\/br><strong>site_name:<\/strong> NAC_HALEPENSIS_2<\/br><strong>LAI:<\/strong> 1.33<\/br>","<strong>Specie:<\/strong> Pinus halepensis<\/br><strong>Site:<\/strong> PIHAL_RAGUA_H<\/br><strong>elev:<\/strong> 1359<\/br><strong>site_name:<\/strong> RAG PIHA 3<\/br><strong>LAI:<\/strong> 1.36<\/br>"],null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Satellite",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addWMSTiles","args":["http://www.ign.es/wms-inspire/pnoa-ma",null,"PNOA Máxima Actualidad",{"styles":"","format":"image/png","transparent":false,"version":"1.1.1","attribution":"PNOA cedido por © <a href=\"http://www.ign.es/ign/main/index.do\" target=\"_blank\">Instituto Geográfico Nacional de España<\/a>","layers":"OI.OrthoimageCoverage"}]},{"method":"addWMSTiles","args":["http://www.ideandalucia.es/wms/mdt_2005?",null,"Hillshade",{"styles":"","format":"image/png","transparent":true,"version":"1.1.1","attribution":"<a href=\"http://www.juntadeandalucia.es/institutodeestadisticaycartografia\" target=\"_blank\">Instituto de Estadística y Cartografía de Andalucía<\/a>","layers":"Sombreado_10"}]},{"method":"addWMSTiles","args":["http://www.ign.es/wms-inspire/ign-base?",null,"Basemap",{"styles":"","format":"image/jpeg","transparent":false,"version":"1.1.1","attribution":"© <a href=\"http://www.ign.es/ign/main/index.do\" target=\"_blank\">Instituto Geográfico Nacional de España<\/a>","layers":"IGNBaseTodo"}]},{"method":"addWMSTiles","args":["http://www.ideandalucia.es/services/toporaster10/wms?",null,"Topographical",{"styles":"","format":"image/png","transparent":false,"version":"1.1.1","attribution":"<a href=\"http://www.juntadeandalucia.es/institutodeestadisticaycartografia\" target=\"_blank\">Instituto de Estadística y Cartografía de Andalucía<\/a>","layers":"toporaster10"}]},{"method":"addWMSTiles","args":["http://www.ideandalucia.es/wms/mta10r_2001-2013?",null,"topo2013",{"styles":"","format":"image/png","transparent":false,"version":"1.1.1","attribution":"<a href=\"http://www.juntadeandalucia.es/institutodeestadisticaycartografia\" target=\"_blank\">Instituto de Estadística y Cartografía de Andalucía<\/a>","layers":"mta10r_2001-2013"}]},{"method":"addWMSTiles","args":["http://www.juntadeandalucia.es/medioambiente/mapwms/REDIAM_Ortofoto_Andalucia_1956?",null,"orto1956",{"styles":"","format":"image/png","transparent":false,"version":"1.1.1","attribution":"<a href=\"http://www.juntadeandalucia.es/institutodeestadisticaycartografia\" target=\"_blank\">Instituto de Estadística y Cartografía de Andalucía<\/a>","layers":"ortofoto_1956"}]},{"method":"addWMSTiles","args":["http://www.juntadeandalucia.es/medioambiente/mapwms/REDIAM_Ortofoto_BN_1977_83?",null,"orto77-83",{"styles":"","format":"image/png","transparent":false,"version":"1.1.1","attribution":"<a href=\"http://www.juntadeandalucia.es/institutodeestadisticaycartografia\" target=\"_blank\">Instituto de Estadística y Cartografía de Andalucía<\/a>","layers":"orto_BN_77_83"}]},{"method":"addPolygons","args":[[[[{"lng":[-3.19594821346026,-3.19595634608571,-3.19484835851923,-3.19484600763784,-3.19594821346026],"lat":[37.1610825924844,37.1619917481863,37.1620003190729,37.1610844097538,37.1610825924844]}]],[[{"lng":[-3.19484600763784,-3.19484835851923,-3.1937249891012,-3.1937262416418,-3.19484600763784],"lat":[37.1610844097538,37.1620003190729,37.1619897061751,37.1610831362119,37.1610844097538]}]],[[{"lng":[-3.19484367791897,-3.19484600763784,-3.1937262416418,-3.19372749242629,-3.19484367791897],"lat":[37.1601767044063,37.1610844097538,37.1610831362119,37.1601778504357,37.1601767044063]}]],[[{"lng":[-3.19360356531614,-3.19360566552849,-3.19248309847208,-3.19248083712933,-3.19360356531614],"lat":[37.1610864459487,37.1619859656182,37.161980125951,37.1610882747451,37.1610864459487]}]],[[{"lng":[-3.1936115847556,-3.19360356531614,-3.19248083712933,-3.1924785112909,-3.1936115847556],"lat":[37.1601654565531,37.1610864459487,37.161088274745,37.1601709459719,37.1601654565531]}]],[[{"lng":[-3.19248083712933,-3.19248309847208,-3.19137430854397,-3.1913755544875,-3.19248083712933],"lat":[37.161088274745,37.161980125951,37.161983923607,37.1610821286856,37.161088274745]}]],[[{"lng":[-3.1924785112909,-3.19248083712933,-3.1913755544875,-3.19137681186906,-3.1924785112909],"lat":[37.1601709459719,37.1610882747451,37.1610821286856,37.1601720678676,37.1601709459719]}]],[[{"lng":[-3.19596438888982,-3.19596143281416,-3.19483866472646,-3.19483047452948,-3.19596438888982],"lat":[37.1582828611189,37.1591920309522,37.1591903835858,37.1582862209385,37.1582828611189]}]],[[{"lng":[-3.19483665919533,-3.19484027997295,-3.19372711267819,-3.19372064323223,-3.19483665919533],"lat":[37.1591905134651,37.1601023521318,37.1601013281728,37.1591932785712,37.1591905134651]}]],[[{"lng":[-3.19483047452948,-3.19484117216233,-3.19372064323223,-3.19372961600328,-3.19483047452948],"lat":[37.1582862209385,37.1591935232312,37.1591932785712,37.1582894724334,37.1582862209385]}]],[[{"lng":[-3.18883415167079,-3.18883662165128,-3.18771238394181,-3.18771439133146,-3.18883415167079],"lat":[37.1464982508833,37.1473713849376,37.147376584645,37.1464929451248,37.1464982508833]}]],[[{"lng":[-3.18882412981664,-3.18883415167079,-3.18771439199666,-3.18771207589255,-3.18882412981664],"lat":[37.1455605927691,37.1464982508833,37.1464929450989,37.1455557622876,37.1455605927691]}]],[[{"lng":[-3.18771439199666,-3.18771238394181,-3.18655086095432,-3.18654891636834,-3.18771439199666],"lat":[37.1464929450989,37.147376584645,37.1473755164431,37.1464947851393,37.1464929450989]}]],[[{"lng":[-3.18771207589255,-3.18771439199666,-3.18654891636834,-3.18655336427941,-3.18771207589255],"lat":[37.1455557622876,37.1464929450989,37.1464947851393,37.1455636607037,37.1455557622876]}]],[[{"lng":[-3.1888363071488,-3.18883357936727,-3.18771522871314,-3.18771907051786,-3.1888363071488],"lat":[37.1483841432739,37.1492845577254,37.1492993726368,37.1483859179901,37.1483841432739]}]],[[{"lng":[-3.18883846081502,-3.1888363071488,-3.18771907051786,-3.18771685490647,-3.18883846081502],"lat":[37.147479880822,37.1483841432739,37.1483859179901,37.1474894832858,37.147479880822]}]],[[{"lng":[-3.18771907051786,-3.18771522871314,-3.18660118460339,-3.18660414411368,-3.18771907051786],"lat":[37.1483859179901,37.1492993726368,37.149298347876,37.1483876785381,37.1483859179901]}]],[[{"lng":[-3.18771685490647,-3.18771907051786,-3.18660414411368,-3.18660368792848,-3.18771685490647],"lat":[37.1474894832858,37.1483859179901,37.1483876785381,37.1474864921365,37.1474894832858]}]],[[{"lng":[-3.18815102300458,-3.1881480551702,-3.18703633514677,-3.18703409735382,-3.18815102300458],"lat":[37.1445954355621,37.1455082147752,37.1455098493223,37.1446010396071,37.1445954355621]}]],[[{"lng":[-3.18815397439731,-3.18815102300458,-3.18703409735382,-3.18703024686115,-3.18815397439731],"lat":[37.14368770571,37.1445954355622,37.1446010396071,37.1436910353933,37.14368770571]}]],[[{"lng":[-3.18703409735382,-3.18703633514677,-3.18591669818568,-3.18591795162658,-3.18703409735382],"lat":[37.1446010396071,37.1455098493223,37.145506172764,37.144598951883,37.1446010396071]}]],[[{"lng":[-3.18703024686115,-3.18703409735382,-3.18591795162658,-3.18591920151077,-3.18703024686115],"lat":[37.1436910353933,37.1446010396071,37.144598951883,37.1436943170245,37.1436910353933]}]],[[{"lng":[-3.18815753045745,-3.18815019429608,-3.18703871031178,-3.18702943654285,-3.18815753045745],"lat":[37.1427062800775,37.1436078415556,37.1436068296392,37.14270806543,37.1427062800775]}]],[[{"lng":[-3.18815611352319,-3.18815753045745,-3.18702943654285,-3.18702411264934,-3.18815611352319],"lat":[37.1417873324905,37.1427062800775,37.14270806543,37.1417906866486,37.1417873324905]}]],[[{"lng":[-3.18702943654285,-3.18703871031178,-3.18591883731156,-3.18592222854146,-3.18702943654285],"lat":[37.14270806543,37.1436068296392,37.1436057995444,37.1427098072879,37.14270806543]}]],[[{"lng":[-3.18702411264934,-3.18702943654285,-3.18592222854146,-3.18592134063665,-3.18702411264934],"lat":[37.1417906866486,37.14270806543,37.1427098072878,37.141793943805,37.1417906866486]}]],[[{"lng":[-3.19050090650789,-3.19050634066459,-3.18940120236363,-3.18939673235521,-3.19050090650789],"lat":[37.1437842408192,37.1446844543116,37.144683448202,37.143786010275,37.1437842408192]}]],[[{"lng":[-3.19051225989171,-3.19050090650789,-3.18939673235521,-3.1893966813751,-3.19051225989171],"lat":[37.1428639452464,37.1437842408192,37.143786010275,37.1428672508219,37.1428639452464]}]],[[{"lng":[-3.18939673235521,-3.18940120236363,-3.18827498368008,-3.18827622287144,-3.18939673235521],"lat":[37.143786010275,37.144683448202,37.1446824123004,37.1437855047316,37.143786010275]}]],[[{"lng":[-3.1893966813751,-3.18939673235521,-3.18827622287144,-3.18827748700517,-3.1893966813751],"lat":[37.1428672508219,37.143786010275,37.1437855047316,37.1428705565609,37.1428672508219]}]],[[{"lng":[-3.19117523825734,-3.19117229312808,-3.1900740283379,-3.19007707839823,-3.19117523825734],"lat":[37.1456728569286,37.1465786531044,37.1465776532844,37.145677902323,37.1456728569286]}]],[[{"lng":[-3.19117821235519,-3.19117523825734,-3.19007707839823,-3.19007477402112,-3.19117821235519],"lat":[37.1447581440393,37.1456728569286,37.145677902323,37.1447570281927,37.1447581440393]}]],[[{"lng":[-3.19007707839823,-3.1900740283379,-3.18894093614356,-3.18895147000042,-3.19007707839823],"lat":[37.145677902323,37.1465776532844,37.1465766110932,37.145679702034,37.145677902323]}]],[[{"lng":[-3.19007477402112,-3.19007707839823,-3.18895147000042,-3.18894343946865,-3.19007477402112],"lat":[37.1447570281927,37.145677902323,37.145679702034,37.1447647553537,37.1447570281927]}]],[[{"lng":[-3.19596226531282,-3.19594821346026,-3.19484600763784,-3.19484367791897,-3.19596226531282],"lat":[37.1601712391212,37.1610825924844,37.1610844097538,37.1601767044063,37.1601712391212]}]],[[{"lng":[-3.19360684046111,-3.193600921234,-3.19136956424949,-3.19137206757457,-3.19360684046111],"lat":[37.158294920643,37.1601154297081,37.160113387697,37.1583015319575,37.158294920643]}]],[[{"lng":[-3.1929033174537,-3.19289739822659,-3.19066604124207,-3.19066854456716,-3.1929033174537],"lat":[37.1428538577167,37.1446743667818,37.1446723247707,37.1428604690312,37.1428538577167]}]],[[{"lng":[-3.19052838905183,-3.19052246982472,-3.1882911128402,-3.18829361616529,-3.19052838905183],"lat":[37.1409866342433,37.1428071433085,37.1428051012973,37.1409932455578,37.1409866342433]}]],[[{"lng":[-3.19595846966271,-3.19484027997295,-3.19484159025394,-3.19596143281416,-3.19595846966271],"lat":[37.160103370184,37.1601023521318,37.1591928081234,37.1591920309522,37.160103370184]}]],[[{"lng":[-3.15335824641549,-3.15223769960335,-3.15222914258461,-3.15335471362086,-3.15335824641549],"lat":[37.1412142163018,37.1412144220215,37.1403194422501,37.1403258664584,37.1412142163018]}]],[[{"lng":[-3.15098767893924,-3.14986994892607,-3.14986819957243,-3.15097453004848,-3.15098767893924],"lat":[37.1420263596593,37.1420250612381,37.1411383188518,37.141136914913,37.1420263596593]}]],[[{"lng":[-3.14862952600203,-3.14750323463251,-3.14750319160308,-3.14862597658283,-3.14862952600203],"lat":[37.1420293285082,37.1420295352553,37.1411370912646,37.1411367980653,37.1420293285082]}]],[[{"lng":[-3.15099070127466,-3.14986623234228,-3.14986655639044,-3.15098711354554,-3.15099070127466],"lat":[37.1401385091261,37.1401410889497,37.1392469526684,37.1392363452494,37.1401385091261]}]],[[{"lng":[-3.14862569590618,-3.14750655741685,-3.14749368775821,-3.14862213021554,-3.14862569590618],"lat":[37.1401362480468,37.1401224781456,37.139248111834,37.1392468838982,37.1401362480468]}]],[[{"lng":[-3.14863661364675,-3.14638646065616,-3.14637935793391,-3.14863286322571,-3.14863661364675],"lat":[37.1439315266425,37.1439287118154,37.142146243994,37.1421376260288,37.1439315266425]}]],[[{"lng":[-3.1510035468095,-3.14875002316514,-3.14875641834014,-3.15099642573469,-3.1510035468095],"lat":[37.1363524587667,37.1363528617183,37.1345622632754,37.1345617759317,37.1363524587667]}]],[[{"lng":[-3.15334389818173,-3.15109037453737,-3.15109676971237,-3.15333677710692,-3.15334389818173],"lat":[37.1355403743771,37.1355407773287,37.1337501788858,37.1337496915421,37.1355403743771]}]],[[{"lng":[-3.15223769960335,-3.15110472277112,-3.15110794120953,-3.15223270382014,-3.15223769960335],"lat":[37.1412144220215,37.1412146192534,37.1403134874189,37.1403256282499,37.1412144220215]}]],[[{"lng":[-3.15335471362086,-3.15223473820303,-3.1522293224339,-3.15335112534068,-3.15335471362086],"lat":[37.1403258664585,37.1403249596549,37.1394226870297,37.1394235334668,37.1403258664585]}]],[[{"lng":[-3.15223473399387,-3.15110794120953,-3.15111111794613,-3.1522293224339,-3.15223473399387],"lat":[37.1403228591002,37.1403134874189,37.1394240208105,37.1394226870297,37.1403228591002]}]],[[{"lng":[-3.15097453004848,-3.14986819957243,-3.14986125151162,-3.15098055786443,-3.15097453004848],"lat":[37.141136914913,37.1411383188518,37.1402359256357,37.1402356768243,37.141136914913]}]],[[{"lng":[-3.14986994892607,-3.14873415529488,-3.14873125808862,-3.14986819957243,-3.14986994892607],"lat":[37.1420250612381,37.1420267626109,37.1411397508778,37.1411383188518,37.1420250612381]}]],[[{"lng":[-3.14986819957243,-3.14873125808862,-3.14871203453027,-3.14986125151162,-3.14986819957243],"lat":[37.1411383188518,37.1411397508778,37.1402465696215,37.1402359256357,37.1411383188518]}]],[[{"lng":[-3.14986623234228,-3.14873717763029,-3.14874770414509,-3.14986103337272,-3.14986623234228],"lat":[37.1401410889497,37.1401389120777,37.1392467465884,37.1392424095674,37.1401410889497]}]],[[{"lng":[-3.14750210677418,-3.14637987630218,-3.14638239753268,-3.14750190048335,-3.14750210677418],"lat":[37.1411399603644,37.1411426779438,37.1402391330169,37.1402429618297,37.1411399603644]}]],[[{"lng":[-3.14750323463251,-3.14637600235767,-3.14637987630218,-3.14750065819327,-3.14750323463251],"lat":[37.1420295352553,37.1420297314598,37.1411426779438,37.1411379658268,37.1420295352553]}]],[[{"lng":[-3.14862597658283,-3.14750004489725,-3.14750190048335,-3.14862240492722,-3.14862597658283],"lat":[37.1411367980653,37.1411452959483,37.1402429618297,37.1402386456733,37.1411367980653]}]],[[{"lng":[-3.15098711354554,-3.14986782026092,-3.14986269956999,-3.15098358019985,-3.15098711354554],"lat":[37.1392363452494,37.1392467318875,37.1383501294778,37.1383478262911,37.1392363452494]}]],[[{"lng":[-3.14986538931217,-3.14874770414509,-3.1487435728053,-3.14986269956999,-3.14986538931217],"lat":[37.1392424981935,37.1392467465884,37.1383483136348,37.1383501294778,37.1392424981935]}]],[[{"lng":[-3.14986073154815,-3.14874797118811,-3.14875116341906,-3.14985771524752,-3.14986073154815],"lat":[37.1373523604344,37.1373526742381,37.1364588692564,37.1364586338015,37.1373523604344]}]],[[{"lng":[-3.14861901825552,-3.14749183720091,-3.1474945586123,-3.14861544137778,-3.14861901825552],"lat":[37.1373586412652,37.1373578355933,37.1364611242198,37.1364591757043,37.1373586412652]}]],[[{"lng":[-3.14986733591172,-3.14874476824405,-3.14874797118811,-3.14986073154815,-3.14986733591172],"lat":[37.1382492723286,37.1382494676993,37.1373526742381,37.1373523604344,37.1382492723286]}]],[[{"lng":[-3.15099284993125,-3.14986073154815,-3.14985771524752,-3.1509911708136,-3.15099284993125],"lat":[37.1373509237716,37.1373523604344,37.1364586338015,37.1364583819127,37.1373509237716]}]],[[{"lng":[-3.14749030042065,-3.14636903880822,-3.14637183811339,-3.1474913822635,-3.14749030042065],"lat":[37.1382500663537,37.1382502614909,37.1373567198503,37.137352136154,37.1382500663537]}]],[[{"lng":[-3.14862256245259,-3.14749030042065,-3.14749503003887,-3.14861901825552,-3.14862256245259],"lat":[37.1382498585393,37.1382500663537,37.1373579543038,37.1373586412652,37.1382498585393]}]],[[{"lng":[-3.15099829188841,-3.14986733591172,-3.14986073154815,-3.15099284993125,-3.15099829188841],"lat":[37.1382490647477,37.1382492723286,37.1373523604344,37.1373509237716,37.1382490647477]}]],[[{"lng":[-3.1474930635955,-3.14637816627217,-3.14636862797173,-3.14747930315351,-3.1474930635955],"lat":[37.1392517759589,37.1392508658448,37.1383605701929,37.1383585377415,37.1392517759589]}]],[[{"lng":[-3.14862213021554,-3.14749368775821,-3.14747930315351,-3.14862039954681,-3.14862213021554],"lat":[37.1392468838982,37.139248111834,37.1383585377415,37.1383619648215,37.1392468838982]}]],[[{"lng":[-3.14750655741685,-3.1463747100461,-3.14637816627217,-3.14749368775821,-3.14750655741685],"lat":[37.1401224781456,37.1401252523622,37.1392508658448,37.139248111834,37.1401224781456]}]],[[{"lng":[-3.1474913822635,-3.14637183811339,-3.14637543398323,-3.1474945586123,-3.1474913822635],"lat":[37.137352136154,37.1373567198503,37.136459663048,37.1364611242198,37.137352136154]}]],[[{"lng":[-3.15335991774753,-3.15222508983614,-3.15222733554153,-3.15335639575351,-3.15335991774753],"lat":[37.1393228663249,37.139323074598,37.1384310501994,37.1384372324264,37.1393228663249]}]],[[{"lng":[-3.15110959524068,-3.15111278927818,-3.15222552793857,-3.15222733554153,-3.15110959524068],"lat":[37.1384269815554,37.1375326708336,37.1375288524811,37.1384310501994,37.1384269815554]}]],[[{"lng":[-3.15335639575351,-3.15222733554153,-3.15222552793856,-3.15335279667272,-3.15335639575351],"lat":[37.1384372324264,37.1384310501994,37.1375288524811,37.1375321834899,37.1384372324264]}]],[[{"lng":[-3.15222508983614,-3.15110639410317,-3.15110959524068,-3.15222733554153,-3.15222508983614],"lat":[37.139323074598,37.1393232692766,37.1384269815554,37.1384310501994,37.139323074598]}]],[[{"lng":[-3.15222354294548,-3.15110317166391,-3.15110898299562,-3.1522242855165,-3.15222354294548],"lat":[37.1365380706332,37.136539504065,37.1356430044969,37.1356427671388,37.1365380706332]}]],[[{"lng":[-3.15335252881879,-3.15222354294548,-3.1522242855165,-3.15334899039016,-3.15335252881879],"lat":[37.1365323143494,37.1365380706332,37.1356427671388,37.1356425171532,37.1365323143494]}]],[[{"lng":[-3.15223095380603,-3.15110258782061,-3.15110317166391,-3.15222354294548,-3.15223095380603],"lat":[37.1374334065323,37.1374336029398,37.136539504065,37.1365380706332,37.1374334065323]}]],[[{"lng":[-3.15335611146497,-3.15223095380603,-3.15222354294548,-3.15335252881879,-3.15335611146497],"lat":[37.1374331999882,37.1374334065323,37.1365380706332,37.1365323143494,37.1374331999882]}]],[[{"lng":[-3.31846622060182,-3.31734384114762,-3.31734259867938,-3.31846241686538,-3.31846622060182],"lat":[36.9628627260071,36.9628673769539,36.9619505373198,36.9619474437774,36.9628627260071]}]],[[{"lng":[-3.3174616141263,-3.31633639186067,-3.31633510429335,-3.31745723966944,-3.3174616141263],"lat":[36.9637818390355,36.9637792579881,36.9628677862516,36.962861749002,36.9637818390355]}]],[[{"lng":[-3.31734370907776,-3.31621696012724,-3.31621666360885,-3.31734258541219,-3.31734370907776],"lat":[36.9628677617671,36.9628687372334,36.9619581016374,36.9619547565459,36.9628677617671]}]],[[{"lng":[-3.31633638966376,-3.31521078722826,-3.31521198051309,-3.31633514195483,-3.31633638966376],"lat":[36.9637777028557,36.9637807017813,36.9628677220372,36.9628694244874,36.9637777028557]}]],[[{"lng":[-3.30396579417909,-3.30285965401403,-3.30285600228886,-3.30396824805359,-3.30396579417909],"lat":[36.9639830450945,36.9639852913129,36.9630633497186,36.9630687243296,36.9639830450945]}]],[[{"lng":[-3.30398056223129,-3.30286294546818,-3.30285965401403,-3.30397025678698,-3.30398056223129],"lat":[36.964905116399,36.9649021719841,36.9639852913129,36.9639800687304,36.964905116399]}]],[[{"lng":[-3.30655957139234,-3.30544467704487,-3.30543786596091,-3.30655440021262,-3.30655957139234],"lat":[36.963439296904,36.9634378028663,36.9625298563399,36.9625252913302,36.963439296904]}]],[[{"lng":[-3.30656811885166,-3.30544057466727,-3.30544552774889,-3.30655852986575,-3.30656811885166],"lat":[36.9643477541037,36.9643506668124,36.9634309094161,36.9634401606325,36.9643477541037]}]],[[{"lng":[-3.30769307290027,-3.30657422118234,-3.30655573978079,-3.30769661202581,-3.30769307290027],"lat":[36.9643452554312,36.9643477405784,36.9634365699217,36.9634290307065,36.9643452554312]}]],[[{"lng":[-3.30181341375538,-3.30069854025242,-3.30069549204403,-3.30181053106938,-3.30181341375538],"lat":[36.9550636434363,36.955066778533,36.9541511695936,36.9541486560113,36.9550636434363]}]],[[{"lng":[-3.30293879264554,-3.30181341375538,-3.30181053106938,-3.30293668342681,-3.30293879264554],"lat":[36.9550607012252,36.9550636434363,36.9541486560113,36.9541419610918,36.9550607012252]}]],[[{"lng":[-3.30294511638727,-3.30182450540431,-3.30181341375538,-3.30293879264554,-3.30294511638727],"lat":[36.9559717951988,36.9559744661938,36.9550636434363,36.9550607012252,36.9559717951988]}]],[[{"lng":[-3.30182450540431,-3.30070287676381,-3.30069854025242,-3.30181341375538,-3.30182450540431],"lat":[36.9559744661938,36.955981180051,36.955066778533,36.9550636434363,36.9559744661938]}]],[[{"lng":[-3.30182088401294,-3.30069984404522,-3.30069786298405,-3.30181728557633,-3.30182088401294],"lat":[36.9569566614077,36.956959505433,36.9560549675148,36.9560448133707,36.9569566614077]}]],[[{"lng":[-3.30293350210376,-3.301820882372,-3.30181728557633,-3.30293035519088,-3.30293350210376],"lat":[36.956953828284,36.9569562456006,36.9560448133707,36.9560416545728,36.956953828284]}]],[[{"lng":[-3.30293101633707,-3.3018233361568,-3.301820882372,-3.30293350210376,-3.30293101633707],"lat":[36.957860705172,36.9578666635588,36.9569562456006,36.956953828284,36.957860705172]}]],[[{"lng":[-3.30183090087143,-3.30070644822436,-3.30069984404522,-3.30182088401294,-3.30183090087143],"lat":[36.9578666229021,36.9578661864837,36.956959505433,36.9569566614077,36.9578666229021]}]],[[{"lng":[-3.29811667833217,-3.29700413711115,-3.29700976056068,-3.29811310648952,-3.29811667833217],"lat":[36.957611927468,36.9576091798391,36.9566983584003,36.9566955936401,36.957611927468]}]],[[{"lng":[-3.2992389411993,-3.29811667833217,-3.29811310648952,-3.29923690889138,-3.2992389411993],"lat":[36.9576027491521,36.957611927468,36.9566955936401,36.9566914866141,36.9576027491521]}]],[[{"lng":[-3.29957158170981,-3.29845746767259,-3.2984469005909,-3.29957185463951,-3.29957158170981],"lat":[36.9585849598139,36.9585877652428,36.9576767487617,36.9576742500892,36.9585849598139]}]],[[{"lng":[-3.29845746767259,-3.29733279129881,-3.29732845478742,-3.29845340883603,-3.29845746767259],"lat":[36.9585877652428,36.9585908578742,36.9576764563561,36.9576739576837,36.9585877652428]}]],[[{"lng":[-3.29923690889138,-3.29811310648952,-3.29810958020663,-3.29923103043344,-3.29923690889138],"lat":[36.9566914866141,36.9566955936401,36.9557909070942,36.9557895017308,36.9566914866141]}]],[[{"lng":[-3.29811310648952,-3.29700976056068,-3.29701072602651,-3.29810958020663,-3.29811310648952],"lat":[36.9566955936401,36.9566983584003,36.9557978322448,36.9557909070942,36.9566955936401]}]],[[{"lng":[-3.30250237308424,-3.30138777524222,-3.30138328161885,-3.30249869256335,-3.30250237308424],"lat":[36.9588479536176,36.9588507978139,36.9579381102071,36.9579306035896,36.9588479536176]}]],[[{"lng":[-3.29845697410603,-3.29733636312307,-3.29733202661168,-3.29845746767259,-3.29845697410603],"lat":[36.959504380675,36.95950705167,36.958592650152,36.9585877652428,36.959504380675]}]],[[{"lng":[-3.29957544699821,-3.29845483601526,-3.29845746767259,-3.29957158170981,-3.29957544699821],"lat":[36.9595077773275,36.9595104483224,36.9585877652428,36.9585849598139,36.9595077773275]}]],[[{"lng":[-3.29913884290002,-3.29801774461218,-3.29801548906728,-3.29913524618588,-3.29913884290002],"lat":[36.9604806966151,36.9604819056423,36.9595626687423,36.9595612312109,36.9604806966151]}]],[[{"lng":[-3.3002670754481,-3.29913883988791,-3.29913602868251,-3.30026180974628,-3.3002670754481],"lat":[36.9604762391168,36.9604799266157,36.9595648642849,36.9595585209164,36.9604762391168]}]],[[{"lng":[-3.29981639344511,-3.29869452503043,-3.29868549471221,-3.29981281494481,-3.29981639344511],"lat":[36.9613894882593,36.9613916759108,36.9604796152702,36.9604767768297,36.9613894882593]}]],[[{"lng":[-3.30093931921547,-3.29981647224761,-3.29981281949276,-3.30093399883665,-3.30093931921547],"lat":[36.9613910678492,36.9613869998011,36.960477936828,36.9604745508105,36.9613910678492]}]],[[{"lng":[-3.30363059876595,-3.30250237310684,-3.30249868975926,-3.30362091924892,-3.30363059876595],"lat":[36.9588443033674,36.9588479636516,36.9579298946634,36.9579269064791,36.9588443033674]}]],[[{"lng":[-3.3028429059273,-3.30171361996504,-3.30171016557047,-3.30284047318488,-3.3028429059273],"lat":[36.959756599058,36.9597557805212,36.958848642403,36.9588469767637,36.959756599058]}]],[[{"lng":[-3.30396743653513,-3.3028429059273,-3.30283973741956,-3.30396311890629,-3.30396743653513],"lat":[36.9597540659348,36.959756599058,36.958845863268,36.9588436459294,36.9597540659348]}]],[[{"lng":[-3.30769091310591,-3.30655522523916,-3.30656017138314,-3.30768034580079,-3.30769091310591],"lat":[36.9634243512676,36.9634415399465,36.9625203634842,36.9625190085339,36.9634243512676]}]],[[{"lng":[-3.30286294546705,-3.30173472543088,-3.30173473198514,-3.30285965401403,-3.30286294546705],"lat":[36.9649021717464,36.9649060785788,36.9639918493832,36.9639852913129,36.9649021717464]}]],[[{"lng":[-3.30285965401403,-3.30173473198514,-3.30174935758879,-3.30285601960144,-3.30285965401403],"lat":[36.9639852913129,36.9639918493832,36.9630781165701,36.9630677206806,36.9639852913129]}]],[[{"lng":[-3.30057079937357,-3.29833817962387,-3.29833970160788,-3.30057201236426,-3.30057079937357],"lat":[36.9557112529615,36.9557167297296,36.9538892455329,36.9538775291931,36.9557112529615]}]],[[{"lng":[-3.29722675273251,-3.29497437345976,-3.29496647137988,-3.29721890009056,-3.29722675273251],"lat":[36.9595090423722,36.9595145316982,36.9576780723279,36.957679667626,36.9595090423722]}]],[[{"lng":[-3.31578145487656,-3.31353456238952,-3.31355119239291,-3.31578102561406,-3.31578145487656],"lat":[36.9656866817732,36.9656824664689,36.9638539757942,36.9638461287036,36.9656866817732]}]],[[{"lng":[-2.69101357674579,-2.68989297341219,-2.68989451294743,-2.69101993088744,-2.69101357674579],"lat":[37.0899901513903,37.0899872264386,37.0890916026611,37.0890853988682,37.0899901513903]}]],[[{"lng":[-2.67762633448312,-2.67650055683615,-2.67651218919916,-2.67762529472163,-2.67762633448312],"lat":[37.0876112342374,37.087603474016,37.0867063503392,37.086709381252,37.0876112342374]}]],[[{"lng":[-2.68763906098232,-2.68650645516086,-2.6865089598167,-2.68764276675219,-2.68763906098232],"lat":[37.0897108836228,37.0897150174534,37.0888108679766,37.0888079005378,37.0897108836228]}]],[[{"lng":[-2.67527179653969,-2.67303865496777,-2.67304360434615,-2.67526988438501,-2.67527179653969],"lat":[37.0854476925747,37.0854322886347,37.0836456727585,37.0836586029521,37.0854476925747]}]],[[{"lng":[-2.69515979029049,-2.69404294414241,-2.6940549819734,-2.69517003956284,-2.69515979029049],"lat":[37.0921705022668,37.09216142687,37.0912644946789,37.0912677035169,37.0921705022668]}]],[[{"lng":[-2.67651643493634,-2.67540362623101,-2.67540191675803,-2.6765202334669,-2.67651643493634],"lat":[37.0857072679966,37.0856961118035,37.0848103222814,37.0848133777724,37.0857072679966]}]],[[{"lng":[-2.6943881179468,-2.69324902524479,-2.69325980117781,-2.69439175121474,-2.6943881179468],"lat":[37.090269323236,37.0902724457865,37.089361090404,37.0893644735097,37.090269323236]}]],[[{"lng":[-2.69549501205027,-2.6943881179468,-2.69439175121474,-2.69550121854265,-2.69549501205027],"lat":[37.0902721705199,37.090269323236,37.0893644735097,37.0893740597505,37.0902721705199]}]],[[{"lng":[-2.69437935760969,-2.69325218711058,-2.69324907411564,-2.6943881179468,-2.69437935760969],"lat":[37.0911625108072,37.0911619148011,37.0902603190235,37.090269323236,37.0911625108072]}]],[[{"lng":[-2.69550313069734,-2.69437938615218,-2.6943881179468,-2.69549501205027,-2.69550313069734],"lat":[37.0911631493731,37.0911554031762,37.090269323236,37.0902721705199,37.0911631493731]}]],[[{"lng":[-2.69212269021114,-2.69100993734137,-2.69101302342729,-2.69212175494678,-2.69212269021114],"lat":[37.0908973049585,37.0908866045465,37.0899947540413,37.0899905886692,37.0908973049585]}]],[[{"lng":[-2.6910053555216,-2.68988496681945,-2.6898883766626,-2.69100897999619,-2.6910053555216],"lat":[37.0908829100839,37.0908782065559,37.0899872144572,37.0899901394089,37.0908829100839]}]],[[{"lng":[-2.69212175493967,-2.69101356180885,-2.69101991595051,-2.69212460368437,-2.69212175493967],"lat":[37.0899905886697,37.089993833872,37.0890890813499,37.0890831784682,37.0899905886697]}]],[[{"lng":[-2.68638393567533,-2.6841507941034,-2.68415574348179,-2.68638202352064,-2.68638393567533],"lat":[37.0905947324785,37.0905793285386,37.0887927126624,37.0888056428559,37.0905947324785]}]],[[{"lng":[-2.68875608622982,-2.68765146260754,-2.68764283288567,-2.68875711532902,-2.68875608622982],"lat":[37.0906099061207,37.0906080860257,37.0897139252806,37.0897138231748,37.0906099061207]}]],[[{"lng":[-2.68875711532902,-2.68763906098232,-2.68764276675219,-2.68875417407513,-2.68875711532902],"lat":[37.0897138231748,37.0897108836228,37.0888079005378,37.0888208164981,37.0897138231748]}]],[[{"lng":[-2.68765312235564,-2.68650514151175,-2.68650764500467,-2.68763906098232,-2.68765312235564],"lat":[37.0906083767288,37.0906086705249,37.0897119888757,37.0897108836228,37.0906083767288]}]],[[{"lng":[-2.67650055683615,-2.67539319291119,-2.67539565388111,-2.67651218919916,-2.67650055683615],"lat":[37.087603474016,37.0875958302974,37.0867074994447,37.0867063503392,37.087603474016]}]],[[{"lng":[-2.67762529472163,-2.67651218919916,-2.67651595953145,-2.67762442232843,-2.67762529472163],"lat":[37.086709381252,37.0867063503392,37.0858191399864,37.0858221446148,37.086709381252]}]],[[{"lng":[-2.67651218919916,-2.67539565388111,-2.67539814228957,-2.67651595953145,-2.67651218919916],"lat":[37.0867063503392,37.0867074994447,37.0858092144212,37.0858191399864,37.0867063503392]}]],[[{"lng":[-2.67763676780293,-2.67651643493634,-2.67652023346586,-2.67763581550843,-2.67763676780293],"lat":[37.0857115157435,37.0857072679966,37.0848133777706,37.0848204842892,37.0857115157435]}]],[[{"lng":[-2.67763581550843,-2.67652023346502,-2.67652404859102,-2.67763485564825,-2.67763581550843],"lat":[37.0848204842892,37.0848133777717,37.083915542934,37.0839224261208,37.0848204842892]}]],[[{"lng":[-2.6765202334661,-2.67540191675803,-2.67540857560939,-2.67652404859102,-2.6765202334661],"lat":[37.0848133777715,37.0848103222814,37.0839094959273,37.083915542934,37.0848133777715]}]],[[{"lng":[-2.69404294414241,-2.69291552687613,-2.6929181772417,-2.6940549819734,-2.69404294414241],"lat":[37.09216142687,37.0921585128381,37.0912578869158,37.0912644946789,37.09216142687]}]],[[{"lng":[-2.69403934714444,-2.69291322786332,-2.69291552687613,-2.69404294414241,-2.69403934714444],"lat":[37.093056131568,37.093044502792,37.0921585128381,37.09216142687,37.093056131568]}]],[[{"lng":[-2.69516074722029,-2.69403934714443,-2.69403934396214,-2.69516340202619,-2.69516074722029],"lat":[37.0930657118655,37.093056131568,37.0921614176143,37.092167627463,37.0930657118655]}]],[[{"lng":[-2.69751618625258,-2.69528304468066,-2.69528799405904,-2.6975142740979,-2.69751618625258],"lat":[37.0930660096744,37.0930506057344,37.0912639898582,37.0912769200517,37.0930660096744]}]]],null,"C1-Adpatamed",{"interactive":true,"className":"","stroke":true,"color":"blue","weight":1,"opacity":0.5,"fill":true,"fillColor":"green","fillOpacity":0.6,"smoothFactor":1,"noClip":false},["<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T1_A1<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 2","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T1_A2<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 2","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T1_A4<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 2.9","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T2_C2<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 2.5","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T2_C4<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 5.6","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T2_C1<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 1.8","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T2_C3<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 3.1","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T3_B2<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 4.4","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T3_B3<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 5.8","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T3_B1<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 5.6","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T2_B4<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 3.2","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T2_B2<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> NA","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T2_B3<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 2","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T2_B1<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 5.4","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T1_B4<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 2.8","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T1_B2<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 2","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T1_B3<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 5.4","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T1_B1<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 2.2","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T1_C2<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 1.4","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T1_C4<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 2.4","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T1_C1<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> NA","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T1_C3<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 2.8","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T3_C2<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 5.3","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T3_C4<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 1.8","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T3_C1<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 2.3","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T3_C3<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 2.6","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T2_A1<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 5","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T2_A3<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 3.5","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T2_A2<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 2.4","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T2_A4<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 1.8","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T3_A1<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 2.9","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T3_A3<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 5","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T3_A2<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 2.7","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T3_A4<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 1.6","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T1_A3<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 4.6","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T1_CONTROL<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 1.7","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T2_CONTROL<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 3.2","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T3_CONTROL<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 4","<strong>sitio:<\/strong> JEREZ<br><strong>ID Cuadricula:<\/strong> PP_T3_B4<br><strong>Especie:<\/strong> PP<br><strong>LAI:<\/strong> 5.2","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T1_A1<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 2.626","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T2_A1<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 3.665","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T3_A1<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 4.713","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T1_B4<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 2.711","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T2_B4<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 4.162","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T3_CONTROL<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 3.53","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T2_CONTROL<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 5.216","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T1_CONTROL<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 3.588","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T1_A2<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 1.545","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T1_A3<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 1.501","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T1_A4<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 3.677","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T2_A3<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 3.439","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T2_A2<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 3.761","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T2_A4<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 2.839","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T1_B3<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 2.929","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T3_A4<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 5.362","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T3_A2<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 3.387","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T3_A3<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 2.696","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T1_B2<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 4.38","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T1_B1<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 2.47","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T3_C3<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 4.616","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T1_C4<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 5.395","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T3_C1<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 2.83","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T3_C4<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 4.043","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T1_C1<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 3.633","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T1_C2<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 2.05","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T3_C2<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 5.35","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T2_B1<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 1.722","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T2_B2<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 2.205","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T2_B3<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 4.117","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T1_C3<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 2.416","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T3_B4<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 2.033","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T3_B1<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 5.16","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T3_B2<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 3.612","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T3_B3<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 1.815","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T2_C3<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 5.042","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T2_C4<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 2.976","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T2_C1<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 2.051","<strong>sitio:<\/strong> LANTEIRA<br><strong>ID Cuadricula:<\/strong> PN_T2_C2<br><strong>Especie:<\/strong> PN<br><strong>LAI:<\/strong> 1.137","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T1_A3<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 4.3","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T1_A1<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 5","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T1_A4<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 2.1","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T1_A2<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 3.2","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T3_C4<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 5.9","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T3_C2<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 5.5","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T2_B1<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 1.7","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T2_B3<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 2.6","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T2_B4<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 3.7","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T2_C3<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 3.7","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T2_C4<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 4.2","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T2_C2<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 5.8","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T2_C1<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 2.1","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T3_B1<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 1.3","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T3_B2<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 2.1","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T3_B4<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 5.4","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T3_B3<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 3.9","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T3_A2<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 0.8","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T3_A1<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 1.5","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T1_B2<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 1.9","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T1_B1<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 1.9","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T3_A3<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 4.1","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T3_A4<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 1.9","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T1_C3<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 2.8","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T1_B3<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 3.9","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T1_B4<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 3.8","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T2_A4<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 2.8","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T2_A3<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 2.6","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T2_A2<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 3.2","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T2_A1<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 2.7","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T1_C4<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 4.6","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T1_C1<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 2.9","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T1_C2<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 2.7","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T2_B2<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 2.6","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T3_C1<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 3.9","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T3_C3<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 3.9","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T2_CONTROL<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 2.8","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T3_CONTROL<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 3.8","<strong>sitio:<\/strong> PORTUGOS<br><strong>ID Cuadricula:<\/strong> PS_T1_CONTROL<br><strong>Especie:<\/strong> PS<br><strong>LAI:<\/strong> 2.3","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T2_B1<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 1.88","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T2_C2<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 2.42","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T3_A4<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 2.22","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_E _CONTROL<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 1.73","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T2_A3<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 1.03","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T3_B3<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 1.37","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T3_C3<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 0.57","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T3_C4<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 0.89","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T3_C1<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 1.26","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T3_C2<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 2","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T2_B4<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 0.84","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T2_B3<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 3.99","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T2_B2<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 2.82","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_C_CONTROL<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 1.05","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T3_A1<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 3.79","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T3_A3<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 1.3","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T3_A2<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 3.14","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T2_C1<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 2.55","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T2_C4<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 2.36","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T2_C3<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 1.08","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T3_B4<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 1.51","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T3_B2<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 0.58","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T3_B1<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 1.32","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T2_A4<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 1.16","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T2_A2<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 1.67","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_T2_A1<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 2.38","<strong>sitio:<\/strong> NACIMIENTO<br><strong>ID Cuadricula:<\/strong> PH_W_CONTROL<br><strong>Especie:<\/strong> PH<br><strong>LAI:<\/strong> 2.1"],null,["PP_T1_A1","PP_T1_A2","PP_T1_A4","PP_T2_C2","PP_T2_C4","PP_T2_C1","PP_T2_C3","PP_T3_B2","PP_T3_B3","PP_T3_B1","PP_T2_B4","PP_T2_B2","PP_T2_B3","PP_T2_B1","PP_T1_B4","PP_T1_B2","PP_T1_B3","PP_T1_B1","PP_T1_C2","PP_T1_C4","PP_T1_C1","PP_T1_C3","PP_T3_C2","PP_T3_C4","PP_T3_C1","PP_T3_C3","PP_T2_A1","PP_T2_A3","PP_T2_A2","PP_T2_A4","PP_T3_A1","PP_T3_A3","PP_T3_A2","PP_T3_A4","PP_T1_A3","PP_T1_CONT","PP_T2_CONT","PP_T3_CONT","PP_T3_B4","PN_T1_A1","PN_T2_A1","PN_T3_A1","PN_T1_B4","PN_T2_B4","PN_T3_CONT","PN_T2_CONT","PN_T1_CONT","PN_T1_A2","PN_T1_A3","PN_T1_A4","PN_T2_A3","PN_T2_A2","PN_T2_A4","PN_T1_B3","PN_T3_A4","PN_T3_A2","PN_T3_A3","PN_T1_B2","PN_T1_B1","PN_T3_C3","PN_T1_C4","PN_T3_C1","PN_T3_C4","PN_T1_C1","PN_T1_C2","PN_T3_C2","PN_T2_B1","PN_T2_B2","PN_T2_B3","PN_T1_C3","PN_T3_B4","PN_T3_B1","PN_T3_B2","PN_T3_B3","PN_T2_C3","PN_T2_C4","PN_T2_C1","PN_T2_C2","PS_T1_A3","PS_T1_A1","PS_T1_A4","PS_T1_A2","PS_T3_C4","PS_T3_C2","PS_T2_B1","PS_T2_B3","PS_T2_B4","PS_T2_C3","PS_T2_C4","PS_T2_C2","PS_T2_C1","PS_T3_B1","PS_T3_B2","PS_T3_B4","PS_T3_B3","PS_T3_A2","PS_T3_A1","PS_T1_B2","PS_T1_B1","PS_T3_A3","PS_T3_A4","PS_T1_C3","PS_T1_B3","PS_T1_B4","PS_T2_A4","PS_T2_A3","PS_T2_A2","PS_T2_A1","PS_T1_C4","PS_T1_C1","PS_T1_C2","PS_T2_B2","PS_T3_C1","PS_T3_C3","PS_T2_CONT","PS_T3_CONT","PS_T1_CONT","PH_T2_B1","PH_T2_C2","PH_T3_A4","PH_CONT_E","PH_T2_A3","PH_T3_B3","PH_T3_C3","PH_T3_C4","PH_T3_C1","PH_T3_C2","PH_T2_B4","PH_T2_B3","PH_T2_B2","PH_CONT_C","PH_T3_A1","PH_T3_A3","PH_T3_A2","PH_T2_C1","PH_T2_C4","PH_T2_C3","PH_T3_B4","PH_T3_B2","PH_T3_B1","PH_T2_A4","PH_T2_A2","PH_T2_A1","PH_CONT_W"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"style":{"color":"black"},"className":"","sticky":true},null]},{"method":"addLayersControl","args":[["Basemap","PNOA Máxima Actualidad","Satellite","Hillshade","Topographical","topo2013","orto1956","orto77-83"],"C1-Adpatamed",{"collapsed":true,"autoZIndex":true,"position":"bottomright"}]}],"limits":{"lat":[36.9538775291931,37.18253],"lng":[-3.31846622060182,-2.67303865496777]}},"evals":[],"jsHooks":[]}</script>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
@@ -2629,11 +1894,9 @@ window.FlexDashboardComponents.push({
 </div>
 
 <script>
-
-$(document).ready(function () {
-
+$(document).ready(function() {
   // add bootstrap table styles to pandoc tables
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed table-sm');
 
   // initialize mathjax
   var script = document.createElement("script");
@@ -2647,7 +1910,6 @@ $(document).ready(function () {
 <script type="text/javascript">
 $(document).ready(function () {
   FlexDashboard.init({
-    theme: "yeti",
     fillPage: true,
     orientation: "columns",
     storyboard: false,
@@ -2656,6 +1918,21 @@ $(document).ready(function () {
     defaultFigWidthMobile: 360,
     defaultFigHeightMobile: 460,
     resize_reload: true
+  });
+  var navbar = $(".navbar").first();
+  var body = $("body").first();
+  var sidebar = $(".section.sidebar").first();
+  function addNavbarPadding() {
+    var navHeight = navbar.outerHeight();
+    body.css("padding-top", (navHeight + 8) + "px");
+    sidebar.css("top", navHeight + "px");
+    var resizeEvent = window.document.createEvent("UIEvents");
+    resizeEvent.initUIEvent("resize", true, false, window, 0);
+    window.dispatchEvent(resizeEvent);
+  }
+  if (!window.Shiny) setTimeout(addNavbarPadding, 100);
+  $(document).on("shiny:idle", function() {
+    setTimeout(addNavbarPadding, 50);
   });
 });
 </script>

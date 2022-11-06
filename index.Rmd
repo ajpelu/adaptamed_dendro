@@ -30,7 +30,7 @@ c1 <- st_read("data/C1.shp", quiet = TRUE)
 c6 <- st_read("data/c6.shp", quiet = TRUE)
 # aoi_sni <- st_transform(aoi_sni, crs = 4326)
 
-parcelas <- st_read("data/geoinfo_dendro.shp", quiet = TRUE) 
+parcelas <- st_read("data/geoinfo_dendro_adaptamed.shp", quiet = TRUE) 
 
 parcelas_pinos <- 
   parcelas %>% 
@@ -105,7 +105,8 @@ leaflet(parcelas_pinos) %>%
     popup = ~paste0("<strong>Specie:</strong> ", parcelas_pinos$Specie, "</br>",
                     "<strong>Site:</strong> ", parcelas_pinos$site_code, "</br>",
                     "<strong>elev:</strong> ", parcelas_pinos$elev, "</br>",
-                    "<strong>site_name:</strong> ", parcelas_pinos$site_name,"</br>"),
+                    "<strong>site_name:</strong> ", parcelas_pinos$site_name,"</br>", 
+                    "<strong>LAI:</strong> ", parcelas_pinos$LAI,"</br>"),
     icon = ~ trees[Specie]
     ) %>% 
   addProviderTiles("Esri.WorldImagery", group = "Satellite") %>% 
