@@ -33,8 +33,8 @@ c6 <- st_read("data/c6.shp", quiet = TRUE)
 parcelas <- st_read("data/geoinfo_dendro_adaptamed.shp", quiet = TRUE) 
 
 parcelas_pinos <- 
-  parcelas %>% 
-  filter(str_detect(Specie, "Pinus*")) %>% 
+  parcelas |> 
+  filter(str_detect(Specie, "Pinus*")) |> 
   mutate(Specie = str_replace(Specie, "_", " "))
   
 ```
@@ -57,7 +57,7 @@ trees <- awesomeIconList(
   ),
   "Pinus nigra" = makeAwesomeIcon(
     icon = "tree",
-    markerColor = "gray",
+    markerColor = "lightblue",
     library = "fa"
   ),
   "Pinus sylvestris" = makeAwesomeIcon(
@@ -100,16 +100,16 @@ trees <- awesomeIconList(
 ```
 
 ```{r}
-leaflet(parcelas_pinos) %>%
+leaflet(parcelas_pinos) |>
   addAwesomeMarkers(
     popup = ~paste0("<strong>Specie:</strong> ", parcelas_pinos$Specie, "</br>",
                     "<strong>Site:</strong> ", parcelas_pinos$site_code, "</br>",
                     "<strong>elev:</strong> ", parcelas_pinos$elev, "</br>",
-                    "<strong>site_name:</strong> ", parcelas_pinos$site_name,"</br>", 
+                    "<strong>elev_category:</strong> ", parcelas_pinos$elev_code,"</br>", 
                     "<strong>LAI:</strong> ", parcelas_pinos$LAI,"</br>"),
     icon = ~ trees[Specie]
-    ) %>% 
-  addProviderTiles("Esri.WorldImagery", group = "Satellite") %>% 
+    ) |> 
+  addProviderTiles("Esri.WorldImagery", group = "Satellite") |> 
   addWMSTiles("http://www.ign.es/wms-inspire/pnoa-ma",
     layers = "OI.OrthoimageCoverage",
     group = "PNOA Máxima Actualidad",
@@ -117,7 +117,16 @@ leaflet(parcelas_pinos) %>%
       format = "image/png", 
       transparent = FALSE),
     attribution = 'PNOA cedido por © <a href="http://www.ign.es/ign/main/index.do" target="_blank">Instituto Geográfico Nacional de España</a>'
-  ) %>% 
+  ) |> 
+   addWMSTiles(
+    baseUrl = "https://www.ideandalucia.es/wms/mta100v_2005?",
+    layers = "Curvas_Altimetricas",
+    group = "Curvas Nivel",
+    options = WMSTileOptions(
+      format = "image/png", 
+      transparent = TRUE),
+    attribution = '<a href="http://www.juntadeandalucia.es/institutodeestadisticaycartografia" target="_blank">Instituto de Estadística y Cartografía de Andalucía</a>'
+  ) |> 
   addWMSTiles(
     baseUrl = "http://www.ideandalucia.es/wms/mdt_2005?",
     layers = "Sombreado_10",
@@ -126,13 +135,13 @@ leaflet(parcelas_pinos) %>%
       format = "image/png", 
       transparent = TRUE),
     attribution = '<a href="http://www.juntadeandalucia.es/institutodeestadisticaycartografia" target="_blank">Instituto de Estadística y Cartografía de Andalucía</a>'
-  ) %>%
+  ) |>
   addWMSTiles(
     baseUrl = "http://www.ign.es/wms-inspire/ign-base?",
     layers = "IGNBaseTodo",
     group = "Basemap",
     attribution = '© <a href="http://www.ign.es/ign/main/index.do" target="_blank">Instituto Geográfico Nacional de España</a>'
-  ) %>%  
+  ) |>  
   addWMSTiles("http://www.ideandalucia.es/services/toporaster10/wms?",
     layers = "toporaster10",
     group = "Topographical",
@@ -140,7 +149,7 @@ leaflet(parcelas_pinos) %>%
       format = "image/png", 
       transparent = FALSE),
     attribution = '<a href="http://www.juntadeandalucia.es/institutodeestadisticaycartografia" target="_blank">Instituto de Estadística y Cartografía de Andalucía</a>'
-  ) %>%
+  ) |>
   addWMSTiles("http://www.ideandalucia.es/wms/mta10r_2001-2013?",
     layers = "mta10r_2001-2013",
     group = "topo2013",
@@ -148,7 +157,7 @@ leaflet(parcelas_pinos) %>%
       format = "image/png", 
       transparent = FALSE),
     attribution = '<a href="http://www.juntadeandalucia.es/institutodeestadisticaycartografia" target="_blank">Instituto de Estadística y Cartografía de Andalucía</a>'
-  ) %>% 
+  ) |> 
   addWMSTiles("http://www.juntadeandalucia.es/medioambiente/mapwms/REDIAM_Ortofoto_Andalucia_1956?",
     layers = "ortofoto_1956",
     group = "orto1956",
@@ -156,7 +165,7 @@ leaflet(parcelas_pinos) %>%
       format = "image/png", 
       transparent = FALSE),
     attribution = '<a href="http://www.juntadeandalucia.es/institutodeestadisticaycartografia" target="_blank">Instituto de Estadística y Cartografía de Andalucía</a>'
-  ) %>% 
+  ) |> 
   addWMSTiles("http://www.juntadeandalucia.es/medioambiente/mapwms/REDIAM_Ortofoto_BN_1977_83?",
     layers = "orto_BN_77_83",
     group = "orto77-83",
@@ -164,7 +173,7 @@ leaflet(parcelas_pinos) %>%
       format = "image/png", 
       transparent = FALSE),
     attribution = '<a href="http://www.juntadeandalucia.es/institutodeestadisticaycartografia" target="_blank">Instituto de Estadística y Cartografía de Andalucía</a>'
-  ) %>% 
+  ) |> 
   addPolygons(
     data = c1,
     group = "C1-Adpatamed",
@@ -178,39 +187,40 @@ leaflet(parcelas_pinos) %>%
       textOnly = F,
       style = list("color" = "black")
     )
-  )  %>% 
+  )  |> 
   addLayersControl(
     position = "bottomright",
     baseGroups = c("Basemap", "PNOA Máxima Actualidad", "Satellite", "Hillshade", "Topographical", "topo2013", "orto1956", "orto77-83"),
-    overlayGroups = c("C1-Adpatamed"), 
+    overlayGroups = c("C1-Adpatamed", "Curvas Nivel"), 
     options = layersControlOptions(collapsed = TRUE)
-  ) 
+  ) |> 
+  hideGroup("Curvas Nivel")
 
 
 ```
 
 
 ```{r, eval=FALSE}
-# %>% 
+# |> 
 #   addWMSTiles("http://www.juntadeandalucia.es/medioambiente/mapwms/REDIAM_distribucion_pinus_pinaster?", 
 #               layers = "distrib_pinus_pinaster", 
 #               group = "P. pinaster", 
 #               options = WMSTileOptions(
 #       format = "image/png", 
-#       transparent = TRUE)) %>% 
+#       transparent = TRUE)) |> 
 #   addWMSTiles("https://www.juntadeandalucia.es/medioambiente/mapwms/REDIAM_distribucion_pinus_nigra?", 
 #               layers = "distrib_pinus_nigra", 
 #               group = "P. nigra", 
 #               options = WMSTileOptions(
 #       format = "image/png", 
-#       transparent = TRUE)) %>%
+#       transparent = TRUE)) |>
 #   addWMSTiles("https://www.juntadeandalucia.es/medioambiente/mapwms/REDIAM_distribucion_pinus_halepensis?", 
 #               layers = "pino_carrasco", 
 #               group = "P. halepensis", 
 #               options = WMSTileOptions(
 #       format = "image/png", 
-#       transparent = TRUE)) %>% 
-#   addProviderTiles("Esri.WorldImagery", group = "Satellite") %>% 
+#       transparent = TRUE)) |> 
+#   addProviderTiles("Esri.WorldImagery", group = "Satellite") |> 
 #   addWMSTiles("http://www.ign.es/wms-inspire/pnoa-ma",
 #     layers = "OI.OrthoimageCoverage",
 #     group = "PNOA Máxima Actualidad",
@@ -218,6 +228,6 @@ leaflet(parcelas_pinos) %>%
 #       format = "image/png", 
 #       transparent = FALSE),
 #     attribution = 'PNOA cedido por © <a href="http://www.ign.es/ign/main/index.do" target="_blank">Instituto Geográfico Nacional de España</a>'
-#    ) %>% 
+#    ) |> 
 ```
 
