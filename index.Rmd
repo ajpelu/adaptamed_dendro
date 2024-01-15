@@ -48,30 +48,39 @@ popup_c1 <- paste0(
   "<br><strong>LAI:</strong> ", c1$lai
 )
 
+# code colors sp 
+# pinaster, "#ffffbf", "beige"
+# nigra, "#abdda4", "lightgreen"
+# halepensis, "orange", "orange"
+# sylvestris, "lightblue", "lightblue"
 
 trees <- awesomeIconList(
   "Pinus pinaster" = makeAwesomeIcon(
     icon = "tree",
-    markerColor = "darkgreen",
+    markerColor = "white",
     library = "fa"
   ),
   "Pinus nigra" = makeAwesomeIcon(
     icon = "tree",
-    markerColor = "lightblue",
+    markerColor = "lightgreen",
     library = "fa"
   ),
   "Pinus sylvestris" = makeAwesomeIcon(
     icon = "tree",
-    markerColor = "orange",
+    markerColor = "lightblue",
     library = "fa"
   ),
   "Pinus halepensis" = makeAwesomeIcon(
     icon = "tree",
-    markerColor = "green",
+    markerColor = "orange",
     library = "fa"
   ))
   
-  
+
+
+
+
+
 #   ,
 #   "Q. pyrenaica" = makeAwesomeIcon(
 #     icon = "tree-deciduous",
@@ -168,7 +177,15 @@ leaflet(parcelas_pinos) |>
   ) |> 
   addWMSTiles("http://www.juntadeandalucia.es/medioambiente/mapwms/REDIAM_Ortofoto_BN_1977_83?",
     layers = "orto_BN_77_83",
-    group = "orto77-83",
+    group = "orto77-78",
+    options = WMSTileOptions(
+      format = "image/png", 
+      transparent = FALSE),
+    attribution = '<a href="http://www.juntadeandalucia.es/institutodeestadisticaycartografia" target="_blank">Instituto de Estadística y Cartografía de Andalucía</a>'
+  ) |> 
+  addWMSTiles("https://www.juntadeandalucia.es/medioambiente/mapwms/REDIAM_Ortofoto_PAN_Andalucia_84_85",
+    layers = "orto_1984_85",
+    group = "orto84-85",
     options = WMSTileOptions(
       format = "image/png", 
       transparent = FALSE),
@@ -190,7 +207,7 @@ leaflet(parcelas_pinos) |>
   )  |> 
   addLayersControl(
     position = "bottomright",
-    baseGroups = c("Basemap", "PNOA Máxima Actualidad", "Satellite", "Hillshade", "Topographical", "topo2013", "orto1956", "orto77-83"),
+    baseGroups = c("Basemap", "PNOA Máxima Actualidad", "Satellite", "Hillshade", "Topographical", "topo2013", "orto1956", "orto77-78", "orto84-85"),
     overlayGroups = c("C1-Adpatamed", "Curvas Nivel"), 
     options = layersControlOptions(collapsed = TRUE)
   ) |> 
