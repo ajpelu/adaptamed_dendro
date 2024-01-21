@@ -191,6 +191,14 @@ leaflet(parcelas_pinos) |>
       transparent = FALSE),
     attribution = '<a href="http://www.juntadeandalucia.es/institutodeestadisticaycartografia" target="_blank">Instituto de Estadística y Cartografía de Andalucía</a>'
   ) |> 
+  addWMSTiles("https://www.ideandalucia.es/wms/ortofoto2001",
+    layers = "ORTO_2001",
+    group = "orto2001",
+    options = WMSTileOptions(
+      format = "image/png", 
+      transparent = FALSE),
+    attribution = '<a href="http://www.juntadeandalucia.es/institutodeestadisticaycartografia" target="_blank">Instituto de Estadística y Cartografía de Andalucía</a>'
+  ) |> 
   addPolygons(
     data = c1,
     group = "C1-Adpatamed",
@@ -207,7 +215,7 @@ leaflet(parcelas_pinos) |>
   )  |> 
   addLayersControl(
     position = "bottomright",
-    baseGroups = c("Basemap", "PNOA Máxima Actualidad", "Satellite", "Hillshade", "Topographical", "topo2013", "orto1956", "orto77-78", "orto84-85"),
+    baseGroups = c("Basemap", "PNOA Máxima Actualidad", "Satellite", "Hillshade", "Topographical", "topo2013", "orto1956", "orto77-78", "orto84-85", "orto2001"),
     overlayGroups = c("C1-Adpatamed", "Curvas Nivel"), 
     options = layersControlOptions(collapsed = TRUE)
   ) |> 
